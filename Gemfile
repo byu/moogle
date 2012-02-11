@@ -23,4 +23,5 @@ group :development do
   gem 'simplecov', '>= 0'
 
   gem 'dm-sqlite-adapter'
+  gem 'dm-mysql-adapter'
 end
