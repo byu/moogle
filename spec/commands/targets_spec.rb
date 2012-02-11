@@ -12,10 +12,11 @@ describe 'Moogle::Commands::CreateTarget' do
 
   it 'should create a target' do
     result = command.call request
-
-    result.type.should == Moogle::WordpressTarget
-    result.owner_ref.should == 'System:1'
-    result.options.should == {}
+    result.kind.should == 'moogle/events/target_created'
+    result.request_uuid.should == request.uuid
+    result.target.type.should == Moogle::WordpressTarget
+    result.target.owner_ref.should == 'System:1'
+    result.target.options.should == {}
   end
 end
 
@@ -31,7 +32,9 @@ describe 'Moogle::Commands::DestroyTarget' do
 
     it 'should succeed' do
       result = command.call request
-      result.should == true
+      result.kind.should == 'moogle/events/target_destroyed'
+      result.request_uuid.should == request.uuid
+      result.target_id.should == 12345
     end
   end
 
@@ -40,7 +43,7 @@ describe 'Moogle::Commands::DestroyTarget' do
       Moogle::Commands::CreateTarget.call(
         Moogle::Requests::CreateTarget.new(
           type: :wordpress,
-          owner_ref: 'System:1'))
+          owner_ref: 'System:1')).target
     }
     let(:request) {
       Moogle::Requests::DestroyTarget.new target_id: existing_target.id
@@ -48,7 +51,9 @@ describe 'Moogle::Commands::DestroyTarget' do
 
     it 'should succeed' do
       result = command.call request
-      result.should == true
+      result.kind.should == 'moogle/events/target_destroyed'
+      result.request_uuid.should == request.uuid
+      result.target_id.should == existing_target.id
     end
   end
 end
@@ -58,7 +63,7 @@ describe 'Moogle::Commands::UpdateTarget' do
     Moogle::Commands::CreateTarget.call(
       Moogle::Requests::CreateTarget.new(
         type: :wordpress,
-        owner_ref: 'System:1'))
+        owner_ref: 'System:1')).target
   }
   let(:request) {
     Moogle::Requests::UpdateTarget.new(
@@ -73,6 +78,8 @@ describe 'Moogle::Commands::UpdateTarget' do
 
   it 'should update existing target' do
     result = command.call request
-    result.options.should == { parameter1: 'value1' }
+    result.kind.should == 'moogle/events/target_updated'
+    result.request_uuid.should == request.uuid
+    result.target.options.should == { parameter1: 'value1' }
   end
 end

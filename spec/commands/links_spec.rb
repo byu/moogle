@@ -5,7 +5,7 @@ describe 'Moogle::Commands::CreateLink' do
     Moogle::Commands::CreateTarget.call(
       Moogle::Requests::CreateTarget.new(
         type: :webhook,
-        owner_ref: 'System:1a'))
+        owner_ref: 'System:1a')).target
   }
   let(:request) {
     Moogle::Requests::CreateLink.new(
@@ -20,10 +20,11 @@ describe 'Moogle::Commands::CreateLink' do
 
   it 'should create a link' do
     result = command.call request
-    result.message_kind.should == 'my_message_kind'
-    result.receiver_ref.should == 'Gym:1'
-    result.render_options.should == { 'parameter' => 'value' }
-    result.suspended.should == false
+    result.kind.should == 'moogle/events/link_created'
+    result.link.message_kind.should == 'my_message_kind'
+    result.link.receiver_ref.should == 'Gym:1'
+    result.link.render_options.should == { 'parameter' => 'value' }
+    result.link.suspended.should == false
   end
 end
 
@@ -32,14 +33,16 @@ describe 'Moogle::Commands::DestroyLink' do
     Moogle::Commands::DestroyLink
   }
 
-  describe 'with non-existent target' do
+  describe 'with non-existent link' do
     let(:request) {
       Moogle::Requests::DestroyLink.new link_id: 12345
     }
 
     it 'should succeed' do
       result = command.call request
-      result.should == true
+      result.kind.should == 'moogle/events/link_destroyed'
+      result.link_id.should == 12345
+      result.request_uuid.should == request.uuid
     end
   end
 
@@ -48,7 +51,7 @@ describe 'Moogle::Commands::DestroyLink' do
       Moogle::Commands::CreateTarget.call(
         Moogle::Requests::CreateTarget.new(
           type: :wordpress,
-          owner_ref: 'System:1'))
+          owner_ref: 'System:1')).target
     }
     let(:existing_link) {
       Moogle::Commands::CreateLink.call(
@@ -56,7 +59,7 @@ describe 'Moogle::Commands::DestroyLink' do
           target_id: existing_target.id,
           receiver_ref: 'Gym:1',
           message_kind: 'my_message_kind',
-          render_options: { 'parameter' => 'value'}))
+          render_options: { 'parameter' => 'value'})).link
     }
     let(:request) {
       Moogle::Requests::DestroyLink.new link_id: existing_link.id
@@ -64,7 +67,9 @@ describe 'Moogle::Commands::DestroyLink' do
 
     it 'should succeed' do
       result = command.call request
-      result.should == true
+      result.kind.should == 'moogle/events/link_destroyed'
+      result.link_id.should == existing_link.id
+      result.request_uuid.should == request.uuid
     end
   end
 end
@@ -74,7 +79,7 @@ describe 'Moogle::Commands::UpdateLink' do
     Moogle::Commands::CreateTarget.call(
       Moogle::Requests::CreateTarget.new(
         type: :wordpress,
-        owner_ref: 'System:1'))
+        owner_ref: 'System:1')).target
   }
   let(:existing_link) {
     Moogle::Commands::CreateLink.call(
@@ -82,7 +87,7 @@ describe 'Moogle::Commands::UpdateLink' do
         target_id: existing_target.id,
         receiver_ref: 'Gym:1',
         message_kind: 'my_message_kind',
-        render_options: { 'nada_parameter' => 'some_value'}))
+        render_options: { 'nada_parameter' => 'some_value'})).link
   }
   let(:request) {
     Moogle::Requests::UpdateLink.new(
@@ -97,7 +102,9 @@ describe 'Moogle::Commands::UpdateLink' do
 
   it 'should update existing link' do
     result = command.call request
-    result.render_options.should == { parameter1: 'value1' }
+    result.kind.should == 'moogle/events/link_updated'
+    result.link.render_options.should == { parameter1: 'value1' }
+    result.request_uuid.should == request.uuid
   end
 end
 
@@ -106,7 +113,7 @@ describe 'Moogle::Commands::SuspendLink' do
     Moogle::Commands::CreateTarget.call(
       Moogle::Requests::CreateTarget.new(
         type: :wordpress,
-        owner_ref: 'System:1'))
+        owner_ref: 'System:1')).target
   }
   let(:existing_link) {
     Moogle::Commands::CreateLink.call(
@@ -114,7 +121,7 @@ describe 'Moogle::Commands::SuspendLink' do
         target_id: existing_target.id,
         receiver_ref: 'Gym:1',
         message_kind: 'my_message_kind',
-        render_options: { 'nada_parameter' => 'some_value'}))
+        render_options: { 'nada_parameter' => 'some_value'})).link
   }
   let(:request) {
     Moogle::Requests::SuspendLink.new link_id: existing_link.id
@@ -125,7 +132,10 @@ describe 'Moogle::Commands::SuspendLink' do
 
   it 'should suspend existing link' do
     result = command.call request
-    result.suspended.should == true
+    result.kind.should == 'moogle/events/link_suspended'
+    result.link.id.should == existing_link.id
+    result.link.suspended.should == true
+    result.request_uuid.should == request.uuid
   end
 end
 
@@ -134,7 +144,7 @@ describe 'Moogle::Commands::UnsuspendLink' do
     Moogle::Commands::CreateTarget.call(
       Moogle::Requests::CreateTarget.new(
         type: :wordpress,
-        owner_ref: 'System:1'))
+        owner_ref: 'System:1')).target
   }
   let(:existing_link) {
     Moogle::Commands::CreateLink.call(
@@ -142,7 +152,7 @@ describe 'Moogle::Commands::UnsuspendLink' do
         target_id: existing_target.id,
         receiver_ref: 'Gym:1',
         message_kind: 'my_message_kind',
-        render_options: { 'nada_parameter' => 'some_value'}))
+        render_options: { 'nada_parameter' => 'some_value'})).link
   }
   let(:request) {
     Moogle::Requests::UnsuspendLink.new link_id: existing_link.id
@@ -157,6 +167,9 @@ describe 'Moogle::Commands::UnsuspendLink' do
 
   it 'should unsuspend existing link' do
     result = command.call request
-    result.suspended.should == false
+    result.kind.should == 'moogle/events/link_unsuspended'
+    result.link.id.should == existing_link.id
+    result.link.suspended.should == false
+    result.request_uuid.should == request.uuid
   end
 end

@@ -1,6 +1,7 @@
 require 'moogle/commands/base_command'
 require 'moogle/error'
 require 'moogle/models'
+require 'moogle/messages/events/target_updated'
 
 module Moogle
 module Commands
@@ -8,20 +9,29 @@ module Commands
   class UpdateTarget < Moogle::Commands::BaseCommand
 
     def call
-      target_id = @request.target_id
+      target_model = @options[:target_model] || Moogle::Target
+      event_class = @options[:event_class] || Moogle::Events::TargetUpdated
+      representer = @options[:representer] || Moogle::TargetRepresenter
 
-      options = extract_options!
-      target_model = options[:target_model] || Moogle::Target
-
-      target = target_model.get target_id
+      target = target_model.get @request.target_id
       raise '404 Not found' unless target
 
-      result = target.update options: @request.options
+      result = target.update update_params
       raise target.errors.full_messages.join('; ') unless target.saved?
-      return target
+
+      target_rep = target.dup.extend representer
+      return event_class.new(
+        request_uuid: @request.uuid,
+        target: target)
     rescue => e
       e.extend Moogle::Error
       raise e
+    end
+
+    protected
+
+    def update_params
+      { options: @request.options }
     end
 
   end

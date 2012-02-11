@@ -11,6 +11,7 @@ module Commands
     def initialize(request, *args)
       @request = request
       @args = args
+      @options = @args.last.is_a?(::Hash) ? pop : {}
 
       # We must first verify that the request is valid.
       unless @request.valid?
@@ -27,12 +28,6 @@ module Commands
 
     def self.call(request, *args)
       self.new(request, *args).call
-    end
-
-    protected
-
-    def extract_options!
-      @args.last.is_a?(::Hash) ? pop : {}
     end
 
   end

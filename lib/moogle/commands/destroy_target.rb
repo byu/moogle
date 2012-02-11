@@ -1,5 +1,6 @@
 require 'moogle/commands/base_command'
 require 'moogle/error'
+require 'moogle/messages/events/target_destroyed'
 require 'moogle/models'
 
 module Moogle
@@ -8,11 +9,19 @@ module Commands
   class DestroyTarget < Moogle::Commands::BaseCommand
 
     def call
+      target_model = @options[:target_model] || Moogle::Target
+      event_class = @options[:event_class] || Moogle::Events::TargetDestroyed
+
       target_id = @request.target_id
-      options = extract_options!
-      target_model = options[:target_model] || Moogle::Target
       target = target_model.get target_id
-      return target ? target.destroy : true
+
+      # We only attempt to destroy the link if it exists.
+      # We raise an error if we are unable to destroy an existing link.
+      raise 'Unable to destroy target' unless target.destroy if target
+
+      return event_class.new(
+        request_uuid: @request.uuid,
+        target_id: target_id)
     rescue => e
       e.extend Moogle::Error
       raise e
