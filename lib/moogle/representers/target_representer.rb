@@ -1,4 +1,4 @@
-require 'roar'
+require 'roar/representer/json'
 
 module Moogle
 
