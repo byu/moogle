@@ -1,4 +1,4 @@
-require 'moogle/commands/base_command'
+require 'moogle/commands/update_link'
 require 'moogle/error'
 require 'moogle/messages/events/link_suspended'
 require 'moogle/messages/requests/suspend_link'
