@@ -1,7 +1,8 @@
 require 'moogle/commands/base_command'
 require 'moogle/error'
-require 'moogle/models'
 require 'moogle/messages/events/link_updated'
+require 'moogle/messages/requests/update_link'
+require 'moogle/models'
 
 module Moogle
 module Commands
@@ -32,6 +33,10 @@ module Commands
 
     def update_params
       { render_options: @request.render_options }
+    end
+
+    def request_parser
+      @options[:request_parser] || Moogle::Requests::UpdateLink
     end
 
   end

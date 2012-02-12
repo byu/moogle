@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'Moogle::Commands::CreateTarget' do
+  let(:request_hash) {{
+    type: :wordpress,
+    owner_ref: 'System:1'
+  }}
   let(:request) {
-    Moogle::Requests::CreateTarget.new(
-      type: :wordpress,
-      owner_ref: 'System:1')
+    Moogle::Requests::CreateTarget.new request_hash
   }
   let(:command) {
     Moogle::Commands::CreateTarget
@@ -18,16 +20,27 @@ describe 'Moogle::Commands::CreateTarget' do
     result.target.owner_ref.should == 'System:1'
     result.target.options.should == {}
   end
+
+  it 'should be able to parse a hash as request' do
+    result = command.call request_hash
+    result.kind.should == 'moogle/events/target_created'
+    result.target.type.should == Moogle::WordpressTarget
+    result.target.owner_ref.should == 'System:1'
+    result.target.options.should == {}
+  end
 end
 
 describe 'Moogle::Commands::DestroyTarget' do
+  let(:request_hash) {{
+    target_id: 12345
+  }}
   let(:command) {
     Moogle::Commands::DestroyTarget
   }
 
   describe 'with non-existent target' do
     let(:request) {
-      Moogle::Requests::DestroyTarget.new target_id: 12345
+      Moogle::Requests::DestroyTarget.new request_hash
     }
 
     it 'should succeed' do
@@ -56,6 +69,12 @@ describe 'Moogle::Commands::DestroyTarget' do
       result.target_id.should == existing_target.id
     end
   end
+
+  it 'should be able to parse a hash as request' do
+    result = command.call request_hash
+    result.kind.should == 'moogle/events/target_destroyed'
+    result.target_id.should == 12345
+  end
 end
 
 describe 'Moogle::Commands::UpdateTarget' do
@@ -65,12 +84,14 @@ describe 'Moogle::Commands::UpdateTarget' do
         type: :wordpress,
         owner_ref: 'System:1')).target
   }
+  let(:request_hash) {{
+    target_id: existing_target.id,
+    options: {
+      parameter1: 'value1'
+    }
+  }}
   let(:request) {
-    Moogle::Requests::UpdateTarget.new(
-      target_id: existing_target.id,
-      options: {
-        parameter1: 'value1'
-      })
+    Moogle::Requests::UpdateTarget.new request_hash
   }
   let(:command) {
     Moogle::Commands::UpdateTarget
@@ -80,6 +101,12 @@ describe 'Moogle::Commands::UpdateTarget' do
     result = command.call request
     result.kind.should == 'moogle/events/target_updated'
     result.request_uuid.should == request.uuid
+    result.target.options.should == { parameter1: 'value1' }
+  end
+
+  it 'should be able to parse a hash as request' do
+    result = command.call request
+    result.kind.should == 'moogle/events/target_updated'
     result.target.options.should == { parameter1: 'value1' }
   end
 end

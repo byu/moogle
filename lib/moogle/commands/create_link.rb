@@ -1,6 +1,7 @@
 require 'moogle/commands/base_command'
 require 'moogle/error'
 require 'moogle/messages/events/link_created'
+require 'moogle/messages/requests/create_link'
 require 'moogle/models'
 require 'moogle/representers/link_representer'
 
@@ -36,6 +37,12 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
+    end
+
+    protected
+
+    def request_parser
+      @options[:request_parser] || Moogle::Requests::CreateLink
     end
 
   end

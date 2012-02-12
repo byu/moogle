@@ -9,9 +9,10 @@ module Commands
     # @param [Moogle::Requests::CreateTarget] the creation request.
     #
     def initialize(request, *args)
-      @request = request
       @args = args
       @options = @args.last.is_a?(::Hash) ? pop : {}
+
+      @request = request.is_a?(Hash) ? request_parser.parse(request) : request
 
       # We must first verify that the request is valid.
       unless @request.valid?
@@ -28,6 +29,12 @@ module Commands
 
     def self.call(request, *args)
       self.new(request, *args).call
+    end
+
+    protected
+
+    def request_parser
+      raise ArgumentError, 'Parsing Hash request is Not Supported'
     end
 
   end

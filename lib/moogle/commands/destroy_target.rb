@@ -1,6 +1,7 @@
 require 'moogle/commands/base_command'
 require 'moogle/error'
 require 'moogle/messages/events/target_destroyed'
+require 'moogle/messages/requests/destroy_target'
 require 'moogle/models'
 
 module Moogle
@@ -25,6 +26,12 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
+    end
+
+    protected
+
+    def request_parser
+      @options[:request_parser] || Moogle::Requests::DestroyTarget
     end
 
   end

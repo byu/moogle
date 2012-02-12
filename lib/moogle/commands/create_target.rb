@@ -3,6 +3,7 @@ require 'active_support/core_ext/string/inflections'
 require 'moogle/commands/base_command'
 require 'moogle/error'
 require 'moogle/messages/events/target_created'
+require 'moogle/messages/requests/create_target'
 require 'moogle/models'
 require 'moogle/representers/target_representer'
 
@@ -35,6 +36,12 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
+    end
+
+    protected
+
+    def request_parser
+      @options[:request_parser] || Moogle::Requests::CreateTarget
     end
 
   end
