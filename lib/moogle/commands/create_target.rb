@@ -16,8 +16,8 @@ module Commands
     # @return [Moogle::Target] the created target, properly subclassed by type.
     #
     def call
-      event_class = @options[:event_class] || Moogle::Events::TargetCreated
-      representer = @options[:representer] || Moogle::TargetRepresenter
+      event_class = @opts[:event_class] || Moogle::Events::TargetCreated
+      representer = @opts[:representer] || Moogle::TargetRepresenter
 
       # Determine our model class name, and get the constant.
       model_name = "moogle/#{@request.type}_target".classify
@@ -41,7 +41,7 @@ module Commands
     protected
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::CreateTarget
+      @opts[:request_parser] || Moogle::Requests::CreateTarget
     end
 
   end

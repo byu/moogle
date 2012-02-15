@@ -10,8 +10,8 @@ module Commands
   class DestroyTarget < Moogle::Commands::BaseCommand
 
     def call
-      target_model = @options[:target_model] || Moogle::Target
-      event_class = @options[:event_class] || Moogle::Events::TargetDestroyed
+      target_model = @opts[:target_model] || Moogle::Target
+      event_class = @opts[:event_class] || Moogle::Events::TargetDestroyed
 
       target_id = @request.target_id
       target = target_model.get target_id
@@ -31,7 +31,7 @@ module Commands
     protected
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::DestroyTarget
+      @opts[:request_parser] || Moogle::Requests::DestroyTarget
     end
 
   end

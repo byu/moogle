@@ -10,9 +10,9 @@ module Commands
   class UpdateLink < Moogle::Commands::BaseCommand
 
     def call
-      link_model = @options[:link_model] || Moogle::Link
-      event_class = @options[:event_class] || Moogle::Events::LinkUpdated
-      representer = @options[:representer] || Moogle::LinkRepresenter
+      link_model = @opts[:link_model] || Moogle::Link
+      event_class = @opts[:event_class] || Moogle::Events::LinkUpdated
+      representer = @opts[:representer] || Moogle::LinkRepresenter
 
       link = link_model.get @request.link_id
       raise '404 Not found' unless link
@@ -36,7 +36,7 @@ module Commands
     end
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::UpdateLink
+      @opts[:request_parser] || Moogle::Requests::UpdateLink
     end
 
   end

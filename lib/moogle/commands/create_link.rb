@@ -11,10 +11,10 @@ module Commands
   class CreateLink < Moogle::Commands::BaseCommand
 
     def call
-      link_model = @options[:link_model] || Moogle::Link
-      target_model = @options[:target_model] || Moogle::Target
-      event_class = @options[:event_class] || Moogle::Events::LinkCreated
-      representer = @options[:representer] || Moogle::LinkRepresenter
+      link_model = @opts[:link_model] || Moogle::Link
+      target_model = @opts[:target_model] || Moogle::Target
+      event_class = @opts[:event_class] || Moogle::Events::LinkCreated
+      representer = @opts[:representer] || Moogle::LinkRepresenter
 
       target = target_model.get @request.target_id
 
@@ -42,7 +42,7 @@ module Commands
     protected
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::CreateLink
+      @opts[:request_parser] || Moogle::Requests::CreateLink
     end
 
   end

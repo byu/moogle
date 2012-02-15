@@ -10,7 +10,7 @@ module Commands
   class UnsuspendLink < Moogle::Commands::UpdateLink
 
     def call
-      @options[:event_class] ||= Moogle::Events::LinkUnsuspended
+      @opts[:event_class] ||= Moogle::Events::LinkUnsuspended
       super
     end
 
@@ -21,7 +21,7 @@ module Commands
     end
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::UnsuspendLink
+      @opts[:request_parser] || Moogle::Requests::UnsuspendLink
     end
 
   end

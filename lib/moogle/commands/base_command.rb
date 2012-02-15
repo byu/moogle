@@ -10,7 +10,7 @@ module Commands
     #
     def initialize(request, *args)
       @args = args
-      @options = @args.last.is_a?(::Hash) ? pop : {}
+      @opts = @args.last.is_a?(::Hash) ? pop : {}
 
       @request = request.is_a?(Hash) ? request_parser.parse(request) : request
 

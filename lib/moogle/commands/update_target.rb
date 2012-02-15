@@ -10,9 +10,9 @@ module Commands
   class UpdateTarget < Moogle::Commands::BaseCommand
 
     def call
-      target_model = @options[:target_model] || Moogle::Target
-      event_class = @options[:event_class] || Moogle::Events::TargetUpdated
-      representer = @options[:representer] || Moogle::TargetRepresenter
+      target_model = @opts[:target_model] || Moogle::Target
+      event_class = @opts[:event_class] || Moogle::Events::TargetUpdated
+      representer = @opts[:representer] || Moogle::TargetRepresenter
 
       target = target_model.get @request.target_id
       raise '404 Not found' unless target
@@ -36,7 +36,7 @@ module Commands
     end
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::UpdateTarget
+      @opts[:request_parser] || Moogle::Requests::UpdateTarget
     end
 
   end

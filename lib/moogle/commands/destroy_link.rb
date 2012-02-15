@@ -10,8 +10,8 @@ module Commands
   class DestroyLink < Moogle::Commands::BaseCommand
 
     def call
-      link_model = @options[:link_model] || Moogle::Link
-      event_class = @options[:event_class] || Moogle::Events::LinkDestroyed
+      link_model = @opts[:link_model] || Moogle::Link
+      event_class = @opts[:event_class] || Moogle::Events::LinkDestroyed
 
       link_id = @request.link_id
       link = link_model.get link_id
@@ -31,7 +31,7 @@ module Commands
     protected
 
     def request_parser
-      @options[:request_parser] || Moogle::Requests::DestroyLink
+      @opts[:request_parser] || Moogle::Requests::DestroyLink
     end
 
   end
