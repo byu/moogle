@@ -1,0 +1,8 @@
+require 'moogle/requests/create_link'
+require 'moogle/requests/create_target'
+require 'moogle/requests/destroy_link'
+require 'moogle/requests/destroy_target'
+require 'moogle/requests/suspend_link'
+require 'moogle/requests/unsuspend_link'
+require 'moogle/requests/update_link'
+require 'moogle/requests/update_target'

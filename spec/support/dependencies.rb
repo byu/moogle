@@ -1,6 +1,6 @@
 require 'moogle/commands'
 require 'moogle/handlers/command_handler'
-require 'moogle/messages/requests'
+require 'moogle/requests'
 
 Aequitas::Violation.default_transformer =
   Aequitas::MessageTransformer::DefaultStatic.new

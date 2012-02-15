@@ -1,5 +1,5 @@
 require 'moogle/commands'
-require 'moogle/messages/events/error'
+require 'moogle/events/error'
 
 module Moogle
 

@@ -2,8 +2,8 @@ require 'active_support/core_ext/string/inflections'
 
 require 'moogle/commands/base_command'
 require 'moogle/error'
-require 'moogle/messages/events/target_created'
-require 'moogle/messages/requests/create_target'
+require 'moogle/events/target_created'
+require 'moogle/requests/create_target'
 require 'moogle/models'
 require 'moogle/representers/target_representer'
 

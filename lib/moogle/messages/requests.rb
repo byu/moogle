@@ -1,8 +1,0 @@
-require 'moogle/messages/requests/create_link'
-require 'moogle/messages/requests/create_target'
-require 'moogle/messages/requests/destroy_link'
-require 'moogle/messages/requests/destroy_target'
-require 'moogle/messages/requests/suspend_link'
-require 'moogle/messages/requests/unsuspend_link'
-require 'moogle/messages/requests/update_link'
-require 'moogle/messages/requests/update_target'

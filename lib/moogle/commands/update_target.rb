@@ -1,7 +1,7 @@
 require 'moogle/commands/base_command'
 require 'moogle/error'
-require 'moogle/messages/events/target_updated'
-require 'moogle/messages/requests/update_target'
+require 'moogle/events/target_updated'
+require 'moogle/requests/update_target'
 require 'moogle/models'
 
 module Moogle

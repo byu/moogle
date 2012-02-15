@@ -1,7 +1,7 @@
 require 'moogle/commands/update_link'
 require 'moogle/error'
-require 'moogle/messages/events/link_suspended'
-require 'moogle/messages/requests/suspend_link'
+require 'moogle/events/link_suspended'
+require 'moogle/requests/suspend_link'
 require 'moogle/models'
 
 module Moogle
