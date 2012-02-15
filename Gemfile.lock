@@ -127,5 +127,6 @@ DEPENDENCIES
   rspec (~> 2.3.0)
   serf!
   simplecov
+  uuidtools (~> 2.1.2)
   virtus (~> 0.2.0)
   yard (~> 0.6.0)

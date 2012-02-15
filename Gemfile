@@ -11,6 +11,7 @@ gem 'roar', '~> 0.9.2'
 #gem 'schizo', git: 'https://github.com/cjbottaro/schizo.git'
 #gem 'serf', '~> 0.6.1'
 gem 'serf', git: 'https://github.com/byu/serf.git', branch: 'develop'
+gem 'uuidtools', '~> 2.1.2'
 gem 'virtus', '~> 0.2.0'
 
 # Add dependencies to develop your gem here.
