@@ -1,6 +1,6 @@
 require 'active_support/core_ext/string/inflections'
+require 'serf/command'
 
-require 'moogle/commands/base_command'
 require 'moogle/error'
 require 'moogle/events/target_created'
 require 'moogle/requests/create_target'
@@ -10,7 +10,7 @@ require 'moogle/representers/target_representer'
 module Moogle
 module Commands
 
-  class CreateTarget < Moogle::Commands::BaseCommand
+  class CreateTarget < Serf::Command
 
     ##
     # @return [Moogle::Target] the created target, properly subclassed by type.

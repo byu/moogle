@@ -1,4 +1,5 @@
-require 'moogle/commands/base_command'
+require 'serf/command'
+
 require 'moogle/error'
 require 'moogle/events/link_created'
 require 'moogle/requests/create_link'
@@ -8,7 +9,7 @@ require 'moogle/representers/link_representer'
 module Moogle
 module Commands
 
-  class CreateLink < Moogle::Commands::BaseCommand
+  class CreateLink < Serf::Command
 
     def call
       link_model = @opts[:link_model] || Moogle::Link

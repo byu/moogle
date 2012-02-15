@@ -1,4 +1,5 @@
-require 'moogle/commands/base_command'
+require 'serf/command'
+
 require 'moogle/error'
 require 'moogle/events/link_destroyed'
 require 'moogle/requests/destroy_link'
@@ -7,7 +8,7 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class DestroyLink < Moogle::Commands::BaseCommand
+  class DestroyLink < Serf::Command
 
     def call
       link_model = @opts[:link_model] || Moogle::Link

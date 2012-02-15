@@ -1,4 +1,5 @@
-require 'moogle/commands/base_command'
+require 'serf/command'
+
 require 'moogle/error'
 require 'moogle/events/link_updated'
 require 'moogle/requests/update_link'
@@ -7,7 +8,7 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class UpdateLink < Moogle::Commands::BaseCommand
+  class UpdateLink < Serf::Command
 
     def call
       link_model = @opts[:link_model] || Moogle::Link

@@ -1,4 +1,5 @@
-require 'moogle/commands/base_command'
+require 'serf/command'
+
 require 'moogle/error'
 require 'moogle/events/target_updated'
 require 'moogle/requests/update_target'
@@ -7,7 +8,7 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class UpdateTarget < Moogle::Commands::BaseCommand
+  class UpdateTarget < Serf::Command
 
     def call
       target_model = @opts[:target_model] || Moogle::Target

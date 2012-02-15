@@ -1,4 +1,5 @@
-require 'moogle/commands/base_command'
+require 'serf/command'
+
 require 'moogle/error'
 require 'moogle/events/target_destroyed'
 require 'moogle/requests/destroy_target'
@@ -7,7 +8,7 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class DestroyTarget < Moogle::Commands::BaseCommand
+  class DestroyTarget < Serf::Command
 
     def call
       target_model = @opts[:target_model] || Moogle::Target

@@ -4,10 +4,8 @@ GIT
   specs:
     rafaday (0.1.0)
 
-GIT
-  remote: https://github.com/byu/serf.git
-  revision: 4f8a2d71fc8190c47ca0c06370ab96853aca1100
-  branch: develop
+PATH
+  remote: ../serf
   specs:
     serf (0.6.1)
       activesupport (>= 3.2.0)
