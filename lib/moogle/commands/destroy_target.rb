@@ -11,10 +11,10 @@ module Commands
   class DestroyTarget < Serf::Command
 
     def call
-      target_model = @opts[:target_model] || Moogle::Target
-      event_class = @opts[:event_class] || Moogle::Events::TargetDestroyed
+      target_model = opts :target_model, Moogle::Target
+      event_class = opts :event_class, Moogle::Events::TargetDestroyed
 
-      target_id = @request.target_id
+      target_id = request.target_id
       target = target_model.get target_id
 
       # We only attempt to destroy the link if it exists.
@@ -22,7 +22,7 @@ module Commands
       raise 'Unable to destroy target' unless target.destroy if target
 
       return event_class.new(
-        request_uuid: @request.uuid,
+        request_uuid: request.uuid,
         target_id: target_id)
     rescue => e
       e.extend Moogle::Error
@@ -32,7 +32,7 @@ module Commands
     protected
 
     def request_parser
-      @opts[:request_parser] || Moogle::Requests::DestroyTarget
+      opts :request_parser, Moogle::Requests::DestroyTarget
     end
 
   end

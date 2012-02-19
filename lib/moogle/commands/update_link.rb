@@ -11,11 +11,11 @@ module Commands
   class UpdateLink < Serf::Command
 
     def call
-      link_model = @opts[:link_model] || Moogle::Link
-      event_class = @opts[:event_class] || Moogle::Events::LinkUpdated
-      representer = @opts[:representer] || Moogle::LinkRepresenter
+      link_model = opts :link_model, Moogle::Link
+      event_class = opts :event_class, Moogle::Events::LinkUpdated
+      representer = opts :representer, Moogle::LinkRepresenter
 
-      link = link_model.get @request.link_id
+      link = link_model.get request.link_id
       raise '404 Not found' unless link
 
       link.update update_params
@@ -23,7 +23,7 @@ module Commands
 
       link_rep = link.dup.extend representer
       return event_class.new(
-        request_uuid: @request.uuid,
+        request_uuid: request.uuid,
         link: link)
     rescue => e
       e.extend Moogle::Error
@@ -33,11 +33,11 @@ module Commands
     protected
 
     def update_params
-      { render_options: @request.render_options }
+      { render_options: request.render_options }
     end
 
     def request_parser
-      @opts[:request_parser] || Moogle::Requests::UpdateLink
+      opts :request_parser, Moogle::Requests::UpdateLink
     end
 
   end

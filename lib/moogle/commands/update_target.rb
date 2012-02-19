@@ -11,11 +11,11 @@ module Commands
   class UpdateTarget < Serf::Command
 
     def call
-      target_model = @opts[:target_model] || Moogle::Target
-      event_class = @opts[:event_class] || Moogle::Events::TargetUpdated
-      representer = @opts[:representer] || Moogle::TargetRepresenter
+      target_model = opts :target_model, Moogle::Target
+      event_class = opts :event_class, Moogle::Events::TargetUpdated
+      representer = opts :representer, Moogle::TargetRepresenter
 
-      target = target_model.get @request.target_id
+      target = target_model.get request.target_id
       raise '404 Not found' unless target
 
       result = target.update update_params
@@ -23,7 +23,7 @@ module Commands
 
       target_rep = target.dup.extend representer
       return event_class.new(
-        request_uuid: @request.uuid,
+        request_uuid: request.uuid,
         target: target)
     rescue => e
       e.extend Moogle::Error
@@ -33,11 +33,11 @@ module Commands
     protected
 
     def update_params
-      { options: @request.options }
+      { options: request.options }
     end
 
     def request_parser
-      @opts[:request_parser] || Moogle::Requests::UpdateTarget
+      opts :request_parser, Moogle::Requests::UpdateTarget
     end
 
   end
