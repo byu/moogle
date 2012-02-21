@@ -1,6 +1,8 @@
 require 'active_support/core_ext/string/inflections'
 require 'roar/representer/json'
 
+require 'moogle/representers/link_representer'
+
 module Moogle
 
   module TargetRepresenter
@@ -13,6 +15,10 @@ module Moogle
     property :options
     property :created_at
     property :updated_at
+
+    collection(
+      :links,
+      :extend => Moogle::LinkRepresenter)
 
     def kind
       'moogle/domain/target'
