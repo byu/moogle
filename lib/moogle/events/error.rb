@@ -11,15 +11,15 @@ module Events
     include Aequitas
     include Serf::Message
 
-    attribute :error_class, String
+    attribute :error, String
     attribute :message, String
     attribute :backtrace, String
-    attribute :request, Object
+    attribute :context, Object
     attribute :uuid, String, :default => lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s
     }
 
-    validates_presence_of :error_class, :message, :request, :uuid
+    validates_presence_of :error, :message, :context, :uuid
 
   end
 

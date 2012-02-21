@@ -1,3 +1,5 @@
+require 'active_support/core_ext/string/inflections'
+
 require 'moogle/commands'
 require 'moogle/events/error'
 
@@ -29,10 +31,10 @@ module Moogle
       return @command_finder.call(env).call(env)
     rescue => e
       return @error_event_class.new(
-        exception_class: e.class,
+        context: env,
+        error: e.class.to_s.tableize,
         message: e.message,
-        backtrace: e.backtrace.join("\n"),
-        request: env)
+        backtrace: e.backtrace.join("\n"))
     end
 
   end
