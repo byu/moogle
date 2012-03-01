@@ -23,19 +23,9 @@ describe 'Moogle::CommandFinder' do
     result.should == Moogle::Commands::DestroyTarget
   end
 
-  it 'should find for moogle/requests/suspend_link' do
-    result = subject.call(kind: 'moogle/requests/suspend_link')
-    result.should == Moogle::Commands::SuspendLink
-  end
-
-  it 'should find for moogle/requests/unsuspend_link' do
-    result = subject.call(kind: 'moogle/requests/unsuspend_link')
-    result.should == Moogle::Commands::UnsuspendLink
-  end
-
-  it 'should find for moogle/requests/update_link' do
-    result = subject.call(kind: 'moogle/requests/update_link')
-    result.should == Moogle::Commands::UpdateLink
+  it 'should find for moogle/requests/find_targets' do
+    result = subject.call(kind: 'moogle/requests/find_targets')
+    result.should == Moogle::Commands::FindTargets
   end
 
   it 'should find for moogle/requests/update_target' do

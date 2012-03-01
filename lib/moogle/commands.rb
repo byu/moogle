@@ -3,9 +3,6 @@ require 'moogle/commands/create_target'
 require 'moogle/commands/destroy_link'
 require 'moogle/commands/destroy_target'
 require 'moogle/commands/find_targets'
-require 'moogle/commands/suspend_link'
-require 'moogle/commands/unsuspend_link'
-require 'moogle/commands/update_link'
 require 'moogle/commands/update_target'
 
 module Moogle
@@ -24,10 +21,7 @@ module Moogle
       'moogle/requests/create_target' => Moogle::Commands::CreateTarget,
       'moogle/requests/destroy_link' => Moogle::Commands::DestroyLink,
       'moogle/requests/destroy_target' => Moogle::Commands::DestroyTarget,
-      'moogle/commands/find_targets' => Moogle::Commands::FindTargets,
-      'moogle/requests/suspend_link' => Moogle::Commands::SuspendLink,
-      'moogle/requests/unsuspend_link' => Moogle::Commands::UnsuspendLink,
-      'moogle/requests/update_link' => Moogle::Commands::UpdateLink,
+      'moogle/requests/find_targets' => Moogle::Commands::FindTargets,
       'moogle/requests/update_target' => Moogle::Commands::UpdateTarget
     }
 

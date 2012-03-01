@@ -14,7 +14,6 @@ module Requests
     attribute :target_id, Integer
     attribute :receiver_ref, String
     attribute :message_kind, String
-    attribute :render_options, Hash, :default => lambda { |obj,attr| Hash.new }
 
     attribute :uuid, String, :default => lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s

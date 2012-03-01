@@ -26,8 +26,7 @@ module Commands
       link = link_model.create(
         target: target,
         receiver_ref: request.receiver_ref,
-        message_kind: request.message_kind,
-        render_options: request.render_options)
+        message_kind: request.message_kind)
       raise link.errors.full_messages.join('. ') unless link.saved?
 
       link_rep = link.dup.extend representer
