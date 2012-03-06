@@ -9,7 +9,10 @@ require 'moogle/representers/link_representer'
 module Moogle
 module Commands
 
-  class CreateLink < Serf::Command
+  class CreateLink
+    include Serf::Command
+
+    self.request_parser = Moogle::Requests::CreateLink
 
     def call
       link_model = opts :link_model, Moogle::Link
@@ -37,12 +40,6 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
-    end
-
-    protected
-
-    def request_parser
-      opts :request_parser, Moogle::Requests::CreateLink
     end
 
   end

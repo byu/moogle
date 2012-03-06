@@ -8,7 +8,10 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class FindTargets < Serf::Command
+  class FindTargets
+    include Serf::Command
+
+    self.request_parser = Moogle::Requests::FindTargets
 
     def call
       target_model = opts :target_model, Moogle::Target
@@ -20,12 +23,6 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
-    end
-
-    protected
-
-    def request_parser
-      opts :request_parser, Moogle::Requests::FindTargets
     end
 
   end

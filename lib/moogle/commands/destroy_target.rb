@@ -8,7 +8,10 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class DestroyTarget < Serf::Command
+  class DestroyTarget
+    include Serf::Command
+
+    self.request_parser = Moogle::Requests::DestroyTarget
 
     def call
       target_model = opts :target_model, Moogle::Target
@@ -27,12 +30,6 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
-    end
-
-    protected
-
-    def request_parser
-      opts :request_parser, Moogle::Requests::DestroyTarget
     end
 
   end

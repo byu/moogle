@@ -10,7 +10,10 @@ require 'moogle/representers/target_representer'
 module Moogle
 module Commands
 
-  class CreateTarget < Serf::Command
+  class CreateTarget
+    include Serf::Command
+
+    self.request_parser = Moogle::Requests::CreateTarget
 
     ##
     # @return [Moogle::Target] the created target, properly subclassed by type.
@@ -36,12 +39,6 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
-    end
-
-    protected
-
-    def request_parser
-      opts :request_parser, Moogle::Requests::CreateTarget
     end
 
   end

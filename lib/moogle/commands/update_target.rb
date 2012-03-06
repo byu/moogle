@@ -8,7 +8,10 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class UpdateTarget < Serf::Command
+  class UpdateTarget
+    include Serf::Command
+
+    self.request_parser = Moogle::Requests::UpdateTarget
 
     def call
       target_model = opts :target_model, Moogle::Target
@@ -34,10 +37,6 @@ module Commands
 
     def update_params
       { options: request.options }
-    end
-
-    def request_parser
-      opts :request_parser, Moogle::Requests::UpdateTarget
     end
 
   end

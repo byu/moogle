@@ -8,7 +8,10 @@ require 'moogle/models'
 module Moogle
 module Commands
 
-  class DestroyLink < Serf::Command
+  class DestroyLink
+    include Serf::Command
+
+    self.request_parser = Moogle::Requests::DestroyLink
 
     def call
       link_model = opts :link_model, Moogle::Link
@@ -27,12 +30,6 @@ module Commands
     rescue => e
       e.extend Moogle::Error
       raise e
-    end
-
-    protected
-
-    def request_parser
-      opts :request_parser, Moogle::Requests::DestroyLink
     end
 
   end
