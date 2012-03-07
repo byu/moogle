@@ -25,6 +25,9 @@ group :development do
   gem "jeweler", "~> 1.8.3"
   gem 'simplecov', '>= 0'
 
+  gem 'vcr', '~> 2.0.0'
+  gem 'webmock', '~> 1.8.1'
+
   gem 'dm-sqlite-adapter'
   gem 'dm-mysql-adapter'
 end

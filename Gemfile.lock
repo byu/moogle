@@ -21,6 +21,7 @@ GEM
     addressable (2.2.7)
     aequitas (0.0.2)
     bcrypt-ruby (3.0.1)
+    crack (0.3.1)
     data_mapper (1.2.0)
       dm-aggregates (~> 1.2.0)
       dm-constraints (~> 1.2.0)
@@ -118,7 +119,11 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     uuidtools (2.1.2)
+    vcr (2.0.0)
     virtus (0.2.0)
+    webmock (1.8.1)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
     yard (0.7.5)
 
 PLATFORMS
@@ -139,5 +144,7 @@ DEPENDENCIES
   serf!
   simplecov
   uuidtools (~> 2.1.2)
+  vcr (~> 2.0.0)
   virtus (~> 0.2.0)
+  webmock (~> 1.8.1)
   yard (~> 0.7.5)
