@@ -10,7 +10,7 @@ module Moogle
 
     property :kind
     property :id
-    property :translated_type, :from => :type
+    property :translated_type, from: :type
     property :owner_ref
     property :options
     property :created_at
@@ -18,7 +18,7 @@ module Moogle
 
     collection(
       :links,
-      :extend => Moogle::LinkRepresenter)
+      extend: Moogle::LinkRepresenter)
 
     def kind
       'moogle/domain/target'

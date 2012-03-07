@@ -15,7 +15,7 @@ module Events
     attribute :message, String
     attribute :backtrace, String
     attribute :context, Object
-    attribute :uuid, String, :default => lambda { |obj,attr|
+    attribute :uuid, String, default: lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s
     }
 

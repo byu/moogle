@@ -12,9 +12,9 @@ module Requests
     include Serf::Message
 
     attribute :target_id, String
-    attribute :options, Hash, :default => lambda { |obj,attr| Hash.new }
+    attribute :options, Hash, default: lambda { |obj,attr| Hash.new }
 
-    attribute :uuid, String, :default => lambda { |obj,attr|
+    attribute :uuid, String, default: lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s
     }
 

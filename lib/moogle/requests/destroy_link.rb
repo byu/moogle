@@ -13,7 +13,7 @@ module Requests
 
     attribute :link_id, Integer
 
-    attribute :uuid, String, :default => lambda { |obj,attr|
+    attribute :uuid, String, default: lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s
     }
 

@@ -13,7 +13,7 @@ module Events
 
     attribute :target_id, Object
     attribute :request_uuid, String
-    attribute :uuid, String, :default => lambda { |obj,attr|
+    attribute :uuid, String, default: lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s
     }
 

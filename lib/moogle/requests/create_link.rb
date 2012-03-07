@@ -15,7 +15,7 @@ module Requests
     attribute :receiver_ref, String
     attribute :message_kind, String
 
-    attribute :uuid, String, :default => lambda { |obj,attr|
+    attribute :uuid, String, default: lambda { |obj,attr|
       UUIDTools::UUID.random_create.to_s
     }
 
