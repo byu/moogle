@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://www.example.com/?sig=1dc41d1c2057247a613e0ca8571015ecc15629ec
+    body:
+      encoding: US-ASCII
+      string: ! '{}'
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 07 Mar 2012 07:20:36 GMT
+      Server:
+      - Apache
+      Last-Modified:
+      - Tue, 28 Feb 2012 20:41:04 GMT
+      Etag:
+      - ! '"d65c17a-95-4ba0c3edeb800"'
+      Accept-Ranges:
+      - bytes
+      Content-Length:
+      - '149'
+      Vary:
+      - Accept-Encoding
+      Content-Type:
+      - text/html
+    body:
+      encoding: US-ASCII
+      string: ! "<html>\n  <head>\n  </head>\n  <body>\n  A long time ago, we used
+        to be friends<br/>\n  But I haven't thought of you lately at all<br/>\n  </body>\n</html>\n"
+    http_version: 
+  recorded_at: Wed, 07 Mar 2012 07:20:36 GMT
+recorded_with: VCR 2.0.0
