@@ -3,9 +3,10 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 
-gem 'addressable', '~> 2.2.6'
+gem 'addressable', '~> 2.2.7'
 gem 'aequitas', '~> 0.0.2'
 gem 'data_mapper', '~> 1.2.0'
+gem 'mail', '~> 2.4.3'
 gem 'rafaday', git: 'https://github.com/byu/rafaday.git'
 gem 'roar', '~> 0.9.2'
 #gem 'schizo', git: 'https://github.com/cjbottaro/schizo.git'
