@@ -60,7 +60,7 @@ describe 'Moogle::Commands::DestroyLink' do
     let(:existing_target) {
       Moogle::Commands::CreateTarget.call(
         Moogle::Requests::CreateTarget.new(
-          type: :wordpress,
+          type: :blog,
           owner_ref: 'System:1')).target
     }
     let(:existing_link) {

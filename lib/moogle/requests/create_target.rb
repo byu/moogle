@@ -23,11 +23,11 @@ module Requests
     validates_presence_of :owner_ref, :uuid
 
     TYPES = [
+      'blog',
       'email',
       'facebook',
       'twitter',
-      'webhook',
-      'wordpress'
+      'webhook'
     ]
 
     def has_valid_type?

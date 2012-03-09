@@ -2,7 +2,7 @@ require 'moogle/models/target'
 
 module Moogle
 
-  class WordpressTarget < Target
+  class BlogTarget < Target
 
     validates_with_method :options, method: :validate_options
 
