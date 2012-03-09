@@ -11,7 +11,7 @@ module Commands
   class UpdateTarget
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::UpdateTarget
+    self.request_factory = Moogle::Requests::UpdateTarget
 
     def call
       target_model = opts :target_model, Moogle::Target

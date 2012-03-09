@@ -11,7 +11,7 @@ module Commands
   class DestroyTarget
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::DestroyTarget
+    self.request_factory = Moogle::Requests::DestroyTarget
 
     def call
       target_model = opts :target_model, Moogle::Target

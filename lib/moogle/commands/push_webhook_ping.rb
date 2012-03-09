@@ -15,7 +15,7 @@ module Commands
   class PushWebhookPing
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::PushWebhookPing
+    self.request_factory = Moogle::Requests::PushWebhookPing
 
     def call
       # Options pulled from the delegated object

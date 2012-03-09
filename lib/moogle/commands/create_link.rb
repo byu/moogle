@@ -12,7 +12,7 @@ module Commands
   class CreateLink
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::CreateLink
+    self.request_factory = Moogle::Requests::CreateLink
 
     def call
       link_model = opts :link_model, Moogle::Link

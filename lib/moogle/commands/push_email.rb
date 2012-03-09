@@ -13,7 +13,7 @@ module Commands
   class PushEmail
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::PushEmail
+    self.request_factory = Moogle::Requests::PushEmail
 
     def call
       mail_class = opts :mail_class, Mail

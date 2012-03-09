@@ -14,7 +14,7 @@ module Commands
   class PushBlogEntry
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::PushBlogEntry
+    self.request_factory = Moogle::Requests::PushBlogEntry
 
     def call
       # Xml-Rpc server

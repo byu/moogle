@@ -11,7 +11,7 @@ module Commands
   class DestroyLink
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::DestroyLink
+    self.request_factory = Moogle::Requests::DestroyLink
 
     def call
       link_model = opts :link_model, Moogle::Link

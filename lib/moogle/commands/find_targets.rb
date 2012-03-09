@@ -11,7 +11,7 @@ module Commands
   class FindTargets
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::FindTargets
+    self.request_factory = Moogle::Requests::FindTargets
 
     def call
       target_model = opts :target_model, Moogle::Target

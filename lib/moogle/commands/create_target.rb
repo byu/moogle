@@ -13,7 +13,7 @@ module Commands
   class CreateTarget
     include Serf::Command
 
-    self.request_parser = Moogle::Requests::CreateTarget
+    self.request_factory = Moogle::Requests::CreateTarget
 
     ##
     # @return [Moogle::Target] the created target, properly subclassed by type.
