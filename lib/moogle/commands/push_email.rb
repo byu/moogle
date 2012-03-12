@@ -39,7 +39,9 @@ module Commands
       end
 
       # Tags for postmark
-      mail.tag = 'tag' if mail.respond_to? :tag=
+      if mail.respond_to?(:tag=) && !request.categories.blank?
+        mail.tag = request.categories.sort.join ', '
+      end
 
       # Deliver the mail using the default mailer delivery settings
       mail.deliver!

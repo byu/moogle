@@ -29,8 +29,8 @@ module Requests
     ## Parameters that make up the BlogEntry.
     ##
 
-    attribute :title, String
-    attribute :description, String
+    attribute :subject, String
+    attribute :html_body, String
     attribute :categories, Array[String], default: []
 
     ##

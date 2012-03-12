@@ -32,7 +32,7 @@ module Requests
     attribute :text_body, String
     attribute :html_body, String
     attribute :html_content_type, String, default: 'text/html; charset=UTF-8'
-    attribute :tag, String
+    attribute :categories, Array[String], default: []
 
     ##
     ## Parameters used to send the email.

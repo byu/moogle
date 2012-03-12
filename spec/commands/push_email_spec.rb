@@ -14,7 +14,7 @@ describe 'Moogle::Commands::PushEmail' do
     subject: 'My Test Subject',
     text_body: 'This is a text email',
     html_body: 'This is an html body email',
-    tag: 'tag1',
+    categories: ['tag1'],
     to: 'user@example.com',
     from: 'from_user@example.com'
   }}

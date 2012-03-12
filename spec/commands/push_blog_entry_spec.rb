@@ -4,8 +4,8 @@ describe 'Moogle::Commands::PushBlogEntry' do
   let(:request) {{
     target_id: 1,
     message_origin: 'btwb/events/workout_session_created',
-    title: 'My Test Title',
-    description: 'Body of the blog post',
+    subject: 'My Test Title',
+    html_body: 'Body of the blog post',
     categories: ['tag1', 'tag2'],
     rpc_uri: 'http://example.wordpress.com/xmlrpc.php',
     blog_uri: 'http://example.wordpress.com/',

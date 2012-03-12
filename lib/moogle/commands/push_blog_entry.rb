@@ -27,9 +27,9 @@ module Commands
         request.username,
         request.password,
         {
-          'title' => request.title,
+          'title' => request.subject,
           'link' => request.blog_uri,
-          'description' => request.description,
+          'description' => request.html_body,
           'categories' => request.categories
         },
         request.publish_immediately)
