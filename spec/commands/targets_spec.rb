@@ -3,7 +3,15 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 describe 'Moogle::Commands::CreateTarget' do
   let(:request_hash) {{
     type: :blog,
-    owner_ref: 'System:1'
+    owner_ref: 'System:1',
+    options: {
+      'rpc_uri' => 'http://example.com/target',
+      'blog_uri' => 'http://example.com/',
+      'blog_id' => 'example_blog_name',
+      'username' => 'username',
+      'password' => 'password',
+      'publish_immediately' => true
+    }
   }}
   let(:request) {
     Moogle::Requests::CreateTarget.new request_hash
@@ -18,7 +26,14 @@ describe 'Moogle::Commands::CreateTarget' do
     result.request_uuid.should == request.uuid
     result.target.type.should == Moogle::BlogTarget
     result.target.owner_ref.should == 'System:1'
-    result.target.options.should == {}
+    result.target.options.should == {
+      'rpc_uri' => 'http://example.com/target',
+      'blog_uri' => 'http://example.com/',
+      'blog_id' => 'example_blog_name',
+      'username' => 'username',
+      'password' => 'password',
+      'publish_immediately' => true
+    }
   end
 
   it 'should be able to parse a hash as request' do
@@ -26,7 +41,14 @@ describe 'Moogle::Commands::CreateTarget' do
     result.kind.should == 'moogle/events/target_created'
     result.target.type.should == Moogle::BlogTarget
     result.target.owner_ref.should == 'System:1'
-    result.target.options.should == {}
+    result.target.options.should == {
+      'rpc_uri' => 'http://example.com/target',
+      'blog_uri' => 'http://example.com/',
+      'blog_id' => 'example_blog_name',
+      'username' => 'username',
+      'password' => 'password',
+      'publish_immediately' => true
+    }
   end
 end
 
@@ -53,10 +75,16 @@ describe 'Moogle::Commands::DestroyTarget' do
 
   describe 'with existing target' do
     let(:existing_target) {
-      Moogle::Commands::CreateTarget.call(
-        Moogle::Requests::CreateTarget.new(
-          type: :blog,
-          owner_ref: 'System:1')).target
+      Moogle::BlogTarget.create(
+        owner_ref: 'System:1a',
+        options: {
+          'rpc_uri' => 'http://example.com/target',
+          'blog_uri' => 'http://example.com/',
+          'blog_id' => 'example_blog_name',
+          'username' => 'username',
+          'password' => 'password',
+          'publish_immediately' => true
+        })
     }
     let(:request) {
       Moogle::Requests::DestroyTarget.new target_id: existing_target.id
@@ -79,15 +107,26 @@ end
 
 describe 'Moogle::Commands::UpdateTarget' do
   let(:existing_target) {
-    Moogle::Commands::CreateTarget.call(
-      Moogle::Requests::CreateTarget.new(
-        type: :blog,
-        owner_ref: 'System:1')).target
+    Moogle::BlogTarget.create(
+      owner_ref: 'System:1a',
+      options: {
+        'rpc_uri' => 'http://example.com/target',
+        'blog_uri' => 'http://example.com/',
+        'blog_id' => 'example_blog_name',
+        'username' => 'username',
+        'password' => 'password',
+        'publish_immediately' => true
+      })
   }
   let(:request_hash) {{
     target_id: existing_target.id,
     options: {
-      parameter1: 'value1'
+      'rpc_uri' => 'http://example.com/target',
+      'blog_uri' => 'http://example.com/',
+      'blog_id' => 'example_blog_name',
+      'username' => 'username',
+      'password' => 'password',
+      'publish_immediately' => false
     }
   }}
   let(:request) {
@@ -101,12 +140,26 @@ describe 'Moogle::Commands::UpdateTarget' do
     result = command.call request
     result.kind.should == 'moogle/events/target_updated'
     result.request_uuid.should == request.uuid
-    result.target.options.should == { parameter1: 'value1' }
+    result.target.options.should == {
+      'rpc_uri' => 'http://example.com/target',
+      'blog_uri' => 'http://example.com/',
+      'blog_id' => 'example_blog_name',
+      'username' => 'username',
+      'password' => 'password',
+      'publish_immediately' => false
+    }
   end
 
   it 'should be able to parse a hash as request' do
     result = command.call request
     result.kind.should == 'moogle/events/target_updated'
-    result.target.options.should == { parameter1: 'value1' }
+    result.target.options.should == {
+      'rpc_uri' => 'http://example.com/target',
+      'blog_uri' => 'http://example.com/',
+      'blog_id' => 'example_blog_name',
+      'username' => 'username',
+      'password' => 'password',
+      'publish_immediately' => false
+    }
   end
 end

@@ -4,6 +4,9 @@ describe 'Moogle::Commands::FindTargets' do
   before {
     Moogle::WebhookTarget.create(
       owner_ref: 'System:1a',
+      options: {
+        'webhook_uri' => 'http://example.com/target'
+      },
       links: [
         Moogle::Link.new
       ])
@@ -23,6 +26,7 @@ describe 'Moogle::Commands::FindTargets' do
     result.size.should == 1
     result.first.kind.should == 'moogle/domain/target'
     result.first.owner_ref.should == 'System:1a'
+    result.first.options['webhook_uri'].should == 'http://example.com/target'
     result.first.links.size.should == 1
   end
 end

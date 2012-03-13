@@ -2,10 +2,11 @@ require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'Moogle::Commands::CreateLink' do
   let(:existing_target) {
-    Moogle::Commands::CreateTarget.call(
-      Moogle::Requests::CreateTarget.new(
-        type: :webhook,
-        owner_ref: 'System:1a')).target
+    Moogle::WebhookTarget.create(
+      owner_ref: 'System:1a',
+      options: {
+        'webhook_uri' => 'http://example.com/target'
+      })
   }
   let(:request_hash) {{
     target_id: existing_target.id,
@@ -58,10 +59,11 @@ describe 'Moogle::Commands::DestroyLink' do
 
   describe 'with existing link' do
     let(:existing_target) {
-      Moogle::Commands::CreateTarget.call(
-        Moogle::Requests::CreateTarget.new(
-          type: :blog,
-          owner_ref: 'System:1')).target
+      Moogle::WebhookTarget.create(
+        owner_ref: 'System:1a',
+        options: {
+          'webhook_uri' => 'http://example.com/target'
+        })
     }
     let(:existing_link) {
       Moogle::Commands::CreateLink.call(
