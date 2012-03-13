@@ -6,7 +6,7 @@ module Moogle
 
     validates_with_method :options, method: :validate_options
 
-    def validated_options
+    def validate_options
       true
     end
   end
