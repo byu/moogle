@@ -5,6 +5,11 @@ require 'serf/util/error_handling'
 require 'moogle/events/error'
 require 'moogle/messages/notification'
 require 'moogle/models'
+require 'moogle/requests/push_blog_entry'
+require 'moogle/requests/push_email'
+require 'moogle/requests/push_facebook_action'
+require 'moogle/requests/push_tweet'
+require 'moogle/requests/push_webhook_ping'
 
 module Moogle
 module Handlers
@@ -76,7 +81,7 @@ module Handlers
       when 'Moogle::TwitterTarget'
         Moogle::Requests::PushTweet
       when 'Moogle::WebhookTarget'
-        Moogle::Requests::PushWebhook
+        Moogle::Requests::PushWebhookPing
       else
         raise ArgumentError, "Unsupported Target #{target_type}"
       end
