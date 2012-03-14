@@ -37,12 +37,12 @@ module Handlers
     end
 
     def call
-      return nil if request.receiver_refs.blank? || request.kind.blank?
+      return nil if request.receiver_refs.blank? || request.message_kind.blank?
 
       # Get all targets whose links' kinds + receivers match.
       model = opts :model, Moogle::Target
       targets = model.all(
-        model.links.message_kind => request.kind,
+        model.links.message_kind => request.message_kind,
         model.links.receiver_ref => request.receiver_refs)
 
       # Create a new push request for each target found.
@@ -55,12 +55,12 @@ module Handlers
             target_id: target.id) do
           request_factory = request_factory_for target.type
           push_data = [
-            request.to_hash,
+            request.attributes,
             default_options,
             target.options
           ].reduce(&:merge)
           push_request = request_factory.build push_data
-          pusher_queue.push push_request
+          pusher_queue.push push_request.to_hash
         end
       end
 

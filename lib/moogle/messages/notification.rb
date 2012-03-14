@@ -13,7 +13,7 @@ module Messages
 
     # Targets
     attribute :receiver_refs, Array[String], default: []
-    attribute :kind, String
+    attribute :message_kind, String
 
     # Email
     attribute :subject, String
