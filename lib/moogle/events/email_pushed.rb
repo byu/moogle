@@ -1,9 +1,9 @@
 require 'aequitas'
 require 'serf/message'
+require 'serf/more/uuid_fields'
 require 'virtus'
 
 require 'moogle/requests/push_email'
-require 'moogle/util/uuid_fields'
 
 module Moogle
 module Events
@@ -16,7 +16,7 @@ module Events
     include Virtus
     include Aequitas
     include Serf::Message
-    include Moogle::Util::UuidFields
+    include Serf::More::UuidFields
 
     ##
     # The target_id of the email recipient

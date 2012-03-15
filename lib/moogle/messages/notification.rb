@@ -1,8 +1,7 @@
 require 'aequitas'
 require 'serf/message'
+require 'serf/more/uuid_fields'
 require 'virtus'
-
-require 'moogle/util/uuid_fields'
 
 module Moogle
 module Messages
@@ -11,7 +10,7 @@ module Messages
     include Virtus
     include Aequitas
     include Serf::Message
-    include Moogle::Util::UuidFields
+    include Serf::More::UuidFields
 
     # Targets
     attribute :receiver_refs, Array[String], default: []
