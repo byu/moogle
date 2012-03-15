@@ -1,7 +1,8 @@
 require 'aequitas'
 require 'serf/message'
-require 'uuidtools'
 require 'virtus'
+
+require 'moogle/util/uuid_fields'
 
 module Moogle
 module Events
@@ -14,6 +15,7 @@ module Events
     include Virtus
     include Aequitas
     include Serf::Message
+    include Moogle::Util::UuidFields
 
     ##
     # The target_id of the blog where we posted.
@@ -27,16 +29,6 @@ module Events
     ##
     # The returned post reference id of the blog entry created.
     attribute :post_ref, String
-
-    ##
-    # The uuid of the request.
-    attribute :request_uuid, String
-
-    ##
-    # This event's uuid.
-    attribute :uuid, String, default: lambda { |obj,attr|
-      UUIDTools::UUID.random_create.to_s
-    }
   end
 
 end

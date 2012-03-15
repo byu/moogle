@@ -23,7 +23,7 @@ describe 'Moogle::Commands::CreateTarget' do
   it 'should create a target' do
     result = command.call request
     result.kind.should == 'moogle/events/target_created'
-    result.request_uuid.should == request.uuid
+    result.parent_uuid.should == request.uuid
     result.target.type.should == Moogle::BlogTarget
     result.target.owner_ref.should == 'System:1'
     result.target.options.should == {
@@ -68,7 +68,7 @@ describe 'Moogle::Commands::DestroyTarget' do
     it 'should succeed' do
       result = command.call request
       result.kind.should == 'moogle/events/target_destroyed'
-      result.request_uuid.should == request.uuid
+      result.parent_uuid.should == request.uuid
       result.target_id.should == 12345
     end
   end
@@ -93,7 +93,7 @@ describe 'Moogle::Commands::DestroyTarget' do
     it 'should succeed' do
       result = command.call request
       result.kind.should == 'moogle/events/target_destroyed'
-      result.request_uuid.should == request.uuid
+      result.parent_uuid.should == request.uuid
       result.target_id.should == existing_target.id
     end
   end
@@ -139,7 +139,7 @@ describe 'Moogle::Commands::UpdateTarget' do
   it 'should update existing target' do
     result = command.call request
     result.kind.should == 'moogle/events/target_updated'
-    result.request_uuid.should == request.uuid
+    result.parent_uuid.should == request.uuid
     result.target.options.should == {
       'rpc_uri' => 'http://example.com/target',
       'blog_uri' => 'http://example.com/',

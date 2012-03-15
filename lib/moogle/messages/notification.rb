@@ -1,7 +1,8 @@
 require 'aequitas'
 require 'serf/message'
-require 'uuidtools'
 require 'virtus'
+
+require 'moogle/util/uuid_fields'
 
 module Moogle
 module Messages
@@ -10,6 +11,7 @@ module Messages
     include Virtus
     include Aequitas
     include Serf::Message
+    include Moogle::Util::UuidFields
 
     # Targets
     attribute :receiver_refs, Array[String], default: []
@@ -27,11 +29,6 @@ module Messages
 
     # Webhook
     attribute :data, String
-
-    # Tracking
-    attribute :uuid, String, default: lambda { |obj,attr|
-      UUIDTools::UUID.random_create.to_s
-    }
   end
 
 end

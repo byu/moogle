@@ -25,7 +25,7 @@ module Commands
       raise 'Unable to destroy link' unless link.destroy if link
 
       return event_class.new(
-        request_uuid: request.uuid,
+        parent_uuid: request.uuid,
         link_id: link_id)
     rescue => e
       e.extend Moogle::Error

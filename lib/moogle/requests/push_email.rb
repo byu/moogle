@@ -1,7 +1,8 @@
 require 'aequitas'
 require 'serf/message'
-require 'uuidtools'
 require 'virtus'
+
+require 'moogle/util/uuid_fields'
 
 module Moogle
 module Requests
@@ -13,14 +14,12 @@ module Requests
     include Virtus
     include Aequitas
     include Serf::Message
+    include Moogle::Util::UuidFields
 
     ##
     ## House Keeping fields
     ##
 
-    attribute :uuid, String, default: lambda { |obj,attr|
-      UUIDTools::UUID.random_create.to_s
-    }
     attribute :target_id, Integer
     attribute :message_origin, String
 

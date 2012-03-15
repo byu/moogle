@@ -57,7 +57,11 @@ module Handlers
           push_data = [
             request.attributes,
             default_options,
-            target.options
+            target.options,
+            {
+              target_id: target.id,
+              message_origin: "#{request.message_kind}:#{request.uuid}:"
+            }
           ].reduce(&:merge)
           push_request = request_factory.build push_data
           pusher_queue.push push_request.to_hash

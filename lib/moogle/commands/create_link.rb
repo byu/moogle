@@ -34,7 +34,7 @@ module Commands
 
       link_rep = link.dup.extend representer
       event = event_class.new(
-        request_uuid: request.uuid,
+        parent_uuid: request.uuid,
         link: link_rep)
       return event
     rescue => e

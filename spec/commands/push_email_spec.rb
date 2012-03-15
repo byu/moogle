@@ -30,7 +30,7 @@ describe 'Moogle::Commands::PushEmail' do
 
     result.target_id.should == request[:target_id]
     result.message_origin == request[:message_origin]
-    result.request_uuid.should == request[:uuid]
+    result.parent_uuid.should == request[:uuid]
     result.request.should_not be_nil
 
     deliveries = Mail.delivery_method.class.deliveries

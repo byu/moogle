@@ -34,7 +34,7 @@ module Commands
 
       target_rep = target.dup.extend representer
       return event_class.new(
-        request_uuid: request.uuid,
+        parent_uuid: request.uuid,
         target: target_rep)
     rescue => e
       e.extend Moogle::Error
