@@ -25,8 +25,7 @@ module Commands
       raise 'Unable to destroy target' unless target.destroy if target
 
       return event_class.new(
-        parent_uuid: request.uuid,
-        target_id: target_id)
+        request.create_child_uuids.merge(target_id: target_id))
     rescue => e
       e.extend Moogle::Error
       raise e

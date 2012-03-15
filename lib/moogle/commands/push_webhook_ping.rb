@@ -43,10 +43,10 @@ module Commands
 
       event_class = opts :event_class, Moogle::Events::WebhookPingPushed
       return event_class.new(
-        parent_uuid: request.uuid,
-        message_origin: request.message_origin,
-        target_id: request.target_id,
-        webhook_uri: request.webhook_uri)
+        request.create_child_uuids.merge(
+          message_origin: request.message_origin,
+          target_id: request.target_id,
+          webhook_uri: request.webhook_uri))
     rescue => e
       e.extend Moogle::Error
       raise e

@@ -25,9 +25,8 @@ module Commands
       raise target.errors.full_messages.join('; ') unless target.saved?
 
       target_rep = target.dup.extend representer
-      return event_class.new(
-        parent_uuid: request.uuid,
-        target: target)
+
+      return event_class.new request.create_child_uuids.merge(target: target)
     rescue => e
       e.extend Moogle::Error
       raise e

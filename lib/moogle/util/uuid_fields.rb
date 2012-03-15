@@ -15,6 +15,14 @@ module Util
       base.attribute :parent_uuid, String
       base.attribute :origin_uuid, String
     end
+
+    def create_child_uuids
+      {
+        uuid: UuidFields.create_coded_uuid,
+        parent_uuid: uuid,
+        origin_uuid: (origin_uuid || parent_uuid || uuid)
+      }
+    end
   end
 
 end

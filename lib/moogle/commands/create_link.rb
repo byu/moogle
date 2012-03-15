@@ -33,10 +33,7 @@ module Commands
       raise link.errors.full_messages.join('. ') unless link.saved?
 
       link_rep = link.dup.extend representer
-      event = event_class.new(
-        parent_uuid: request.uuid,
-        link: link_rep)
-      return event
+      return event_class.new request.create_child_uuids.merge(link: link_rep)
     rescue => e
       e.extend Moogle::Error
       raise e
