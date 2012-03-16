@@ -12,7 +12,7 @@ module Events
     include Serf::Message
     include Serf::More::UuidFields
 
-    attribute :link_id, Object
+    attribute :link_id, Integer
 
     validates_presence_of :link_id
   end

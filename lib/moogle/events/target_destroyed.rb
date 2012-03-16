@@ -12,7 +12,7 @@ module Events
     include Serf::Message
     include Serf::More::UuidFields
 
-    attribute :target_id, Object
+    attribute :target_id, Integer
 
     validates_presence_of :target_id
   end
