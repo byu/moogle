@@ -12,7 +12,7 @@ gem 'rafaday', '~> 0.1.0'
 #gem 'rafaday', git: 'https://github.com/byu/rafaday.git', branch: 'develop'
 #gem 'rafaday', git: '../rafaday'
 gem 'roar', '~> 0.9.2'
-gem 'serf', '~> 0.7.0'
+gem 'serf', '~> 0.8.0'
 #gem 'serf', git: 'https://github.com/byu/serf.git', branch: 'develop'
 #gem 'serf', path: '../serf'
 gem 'uuidtools', '~> 2.1.2'
@@ -23,7 +23,7 @@ gem 'virtus', '~> 0.3.0'
 group :development do
   gem "rspec", "~> 2.8.0"
   gem "yard", "~> 0.7.5"
-  gem "bundler", "~> 1.0.22"
+  gem "bundler", "~> 1.1.3"
   gem "jeweler", "~> 1.8.3"
   gem 'simplecov', '>= 0'
 
