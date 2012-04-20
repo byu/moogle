@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Benjamin Yu"]
-  s.date = "2012-03-14"
+  s.date = "2012-04-20"
   s.description = "Notification pushing to 3rd parties"
   s.email = "benjaminlyu@gmail.com"
   s.extra_rdoc_files = [
@@ -72,6 +72,7 @@ Gem::Specification.new do |s|
     "lib/moogle/requests/push_webhook_ping.rb",
     "lib/moogle/requests/update_target.rb",
     "lib/moogle/version.rb",
+    "moogle.gemspec",
     "spec/commands/find_targets_spec.rb",
     "spec/commands/links_spec.rb",
     "spec/commands/push_blog_entry_spec.rb",
@@ -101,12 +102,12 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<faraday>, ["~> 0.7.6"])
       s.add_runtime_dependency(%q<rafaday>, ["~> 0.1.0"])
       s.add_runtime_dependency(%q<roar>, ["~> 0.9.2"])
-      s.add_runtime_dependency(%q<serf>, ["~> 0.7.0"])
+      s.add_runtime_dependency(%q<serf>, ["~> 0.8.0"])
       s.add_runtime_dependency(%q<uuidtools>, ["~> 2.1.2"])
       s.add_runtime_dependency(%q<virtus>, ["~> 0.3.0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.7.5"])
-      s.add_development_dependency(%q<bundler>, ["~> 1.0.22"])
+      s.add_development_dependency(%q<bundler>, ["~> 1.1.3"])
       s.add_development_dependency(%q<jeweler>, ["~> 1.8.3"])
       s.add_development_dependency(%q<simplecov>, [">= 0"])
       s.add_development_dependency(%q<vcr>, ["~> 2.0.0"])
@@ -121,12 +122,12 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<faraday>, ["~> 0.7.6"])
       s.add_dependency(%q<rafaday>, ["~> 0.1.0"])
       s.add_dependency(%q<roar>, ["~> 0.9.2"])
-      s.add_dependency(%q<serf>, ["~> 0.7.0"])
+      s.add_dependency(%q<serf>, ["~> 0.8.0"])
       s.add_dependency(%q<uuidtools>, ["~> 2.1.2"])
       s.add_dependency(%q<virtus>, ["~> 0.3.0"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<yard>, ["~> 0.7.5"])
-      s.add_dependency(%q<bundler>, ["~> 1.0.22"])
+      s.add_dependency(%q<bundler>, ["~> 1.1.3"])
       s.add_dependency(%q<jeweler>, ["~> 1.8.3"])
       s.add_dependency(%q<simplecov>, [">= 0"])
       s.add_dependency(%q<vcr>, ["~> 2.0.0"])
@@ -142,12 +143,12 @@ Gem::Specification.new do |s|
     s.add_dependency(%q<faraday>, ["~> 0.7.6"])
     s.add_dependency(%q<rafaday>, ["~> 0.1.0"])
     s.add_dependency(%q<roar>, ["~> 0.9.2"])
-    s.add_dependency(%q<serf>, ["~> 0.7.0"])
+    s.add_dependency(%q<serf>, ["~> 0.8.0"])
     s.add_dependency(%q<uuidtools>, ["~> 2.1.2"])
     s.add_dependency(%q<virtus>, ["~> 0.3.0"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<yard>, ["~> 0.7.5"])
-    s.add_dependency(%q<bundler>, ["~> 1.0.22"])
+    s.add_dependency(%q<bundler>, ["~> 1.1.3"])
     s.add_dependency(%q<jeweler>, ["~> 1.8.3"])
     s.add_dependency(%q<simplecov>, [">= 0"])
     s.add_dependency(%q<vcr>, ["~> 2.0.0"])
