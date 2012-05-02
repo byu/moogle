@@ -7,8 +7,8 @@ require 'moogle/messages/notification'
 require 'moogle/models'
 require 'moogle/requests/push_blog_entry'
 require 'moogle/requests/push_email'
-require 'moogle/requests/push_facebook_action'
-require 'moogle/requests/push_tweet'
+#require 'moogle/requests/push_facebook_action'
+#require 'moogle/requests/push_tweet'
 require 'moogle/requests/push_webhook_ping'
 
 module Moogle
@@ -80,10 +80,10 @@ module Handlers
         Moogle::Requests::PushBlogEntry
       when 'Moogle::EmailTarget'
         Moogle::Requests::PushEmail
-      when 'Moogle::FacebookTarget'
-        Moogle::Requests::PushFacebookAction
-      when 'Moogle::TwitterTarget'
-        Moogle::Requests::PushTweet
+      #when 'Moogle::FacebookTarget'
+      #  Moogle::Requests::PushFacebookAction
+      #when 'Moogle::TwitterTarget'
+      #  Moogle::Requests::PushTweet
       when 'Moogle::WebhookTarget'
         Moogle::Requests::PushWebhookPing
       else
