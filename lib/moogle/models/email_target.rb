@@ -8,7 +8,6 @@ module Moogle
 
     def validate_options
       return false, 'options "to" is blank' if options['to'].blank?
-      return false, 'options "from" is blank' if options['from'].blank?
       true
     end
   end
