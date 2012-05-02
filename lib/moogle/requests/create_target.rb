@@ -1,6 +1,6 @@
 require 'aequitas'
 require 'serf/message'
-require 'uuidtools'
+require 'serf/more/uuid_fields'
 require 'virtus'
 
 module Moogle
@@ -10,17 +10,14 @@ module Requests
     include Virtus
     include Aequitas
     include Serf::Message
+    include Serf::More::UuidFields
 
     attribute :type, String
     attribute :owner_ref, String
     attribute :options, Hash, default: lambda { |obj,attr| Hash.new }
 
-    attribute :uuid, String, default: lambda { |obj,attr|
-      UUIDTools::UUID.random_create.to_s
-    }
-
     validates_with_method :type, method: :has_valid_type?
-    validates_presence_of :owner_ref, :uuid
+    validates_presence_of :owner_ref
 
     TYPES = [
       'blog',

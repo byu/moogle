@@ -1,6 +1,6 @@
 require 'aequitas'
 require 'serf/message'
-require 'uuidtools'
+require 'serf/more/uuid_fields'
 require 'virtus'
 
 module Moogle
@@ -10,15 +10,11 @@ module Events
     include Virtus
     include Aequitas
     include Serf::Message
+    include Serf::More::UuidFields
 
-    attribute :target_id, Object
-    attribute :request_uuid, String
-    attribute :uuid, String, default: lambda { |obj,attr|
-      UUIDTools::UUID.random_create.to_s
-    }
+    attribute :target_id, Integer
 
-    validates_presence_of :target_id, :request_uuid, :uuid
-
+    validates_presence_of :target_id
   end
 
 end

@@ -37,10 +37,10 @@ module Commands
       # Return an event representing this action.
       event_class = opts :event_class, Moogle::Events::BlogEntryPushed
       return event_class.new(
-        request_uuid: request.uuid,
-        message_origin: request.message_origin,
-        target_id: request.target_id,
-        post_ref: post_ref)
+        request.create_child_uuids.merge(
+          message_origin: request.message_origin,
+          target_id: request.target_id,
+          post_ref: post_ref))
     rescue XMLRPC::FaultException => e
       e.extend Moogle::Error
       raise e

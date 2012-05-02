@@ -25,7 +25,7 @@ describe 'Moogle::Handlers::AcceptNotification' do
   end
 
   let(:message) {{
-    kind: 'some_application/my_notification',
+    message_kind: 'some_application/my_notification',
     receiver_refs: ['member:1', 'gym:1'],
     subject: 'Subject',
     html_body: 'My Html Body',
@@ -43,12 +43,12 @@ describe 'Moogle::Handlers::AcceptNotification' do
       pusher_queue: pusher_queue,
       error_channel: error_channel)
     results.should be_nil
-    pusher_queue.first.class.should == Moogle::Requests::PushEmail
-    pusher_queue.first.subject.should == 'Subject'
-    pusher_queue.first.html_body.should == 'My Html Body'
-    pusher_queue.first.text_body.should == 'Text Body'
-    pusher_queue.first.to.should == 'target@example.com'
-    pusher_queue.first.from.should == 'source@example.com'
+    pusher_queue.first.class.should == Hash
+    pusher_queue.first[:subject].should == 'Subject'
+    pusher_queue.first[:html_body].should == 'My Html Body'
+    pusher_queue.first[:text_body].should == 'Text Body'
+    pusher_queue.first[:to].should == 'target@example.com'
+    pusher_queue.first[:from].should == 'source@example.com'
     error_channel.should == []
   end
 

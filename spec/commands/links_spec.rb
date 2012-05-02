@@ -23,7 +23,7 @@ describe 'Moogle::Commands::CreateLink' do
   it 'should create a link' do
     result = command.call request
     result.kind.should == 'moogle/events/link_created'
-    result.request_uuid.should == request.uuid
+    result.parent_uuid.should == request.uuid
     result.link.message_kind.should == 'my_message_kind'
     result.link.receiver_ref.should == 'Gym:1'
   end
@@ -53,7 +53,7 @@ describe 'Moogle::Commands::DestroyLink' do
       result = command.call request
       result.kind.should == 'moogle/events/link_destroyed'
       result.link_id.should == 12345
-      result.request_uuid.should == request.uuid
+      result.parent_uuid.should == request.uuid
     end
   end
 
@@ -80,7 +80,7 @@ describe 'Moogle::Commands::DestroyLink' do
       result = command.call request
       result.kind.should == 'moogle/events/link_destroyed'
       result.link_id.should == existing_link.id
-      result.request_uuid.should == request.uuid
+      result.parent_uuid.should == request.uuid
     end
   end
 

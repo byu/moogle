@@ -12,15 +12,17 @@ end
 require 'rake'
 
 require 'jeweler'
+require './lib/moogle/version'
 Jeweler::Tasks.new do |gem|
   # gem is a Gem::Specification... see http://docs.rubygems.org/read/chapter/20 for more options
   gem.name = "moogle"
   gem.homepage = "http://github.com/byu/moogle"
-  gem.license = "MIT"
-  gem.summary = %Q{TODO: one-line summary of your gem}
-  gem.description = %Q{TODO: longer description of your gem}
+  gem.license = "Apache 2.0"
+  gem.summary = %Q{Notification pushing to 3rd parties}
+  gem.description = %Q{Notification pushing to 3rd parties}
   gem.email = "benjaminlyu@gmail.com"
   gem.authors = ["Benjamin Yu"]
+  gem.version = Moogle::Version::STRING
   # dependencies defined in Gemfile
 end
 Jeweler::RubygemsDotOrgTasks.new

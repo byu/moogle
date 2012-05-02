@@ -26,7 +26,7 @@ describe 'Moogle::Commands::PushBlogEntry' do
       result.post_ref.should == '61'
       result.target_id.should == request[:target_id]
       result.message_origin == request[:message_origin]
-      result.request_uuid.should == request[:uuid]
+      result.parent_uuid.should == request[:uuid]
     end
   end
 

@@ -5,6 +5,11 @@ require 'serf/util/error_handling'
 require 'moogle/events/error'
 require 'moogle/messages/notification'
 require 'moogle/models'
+require 'moogle/requests/push_blog_entry'
+require 'moogle/requests/push_email'
+require 'moogle/requests/push_facebook_action'
+require 'moogle/requests/push_tweet'
+require 'moogle/requests/push_webhook_ping'
 
 module Moogle
 module Handlers
@@ -32,12 +37,12 @@ module Handlers
     end
 
     def call
-      return nil if request.receiver_refs.blank? || request.kind.blank?
+      return nil if request.receiver_refs.blank? || request.message_kind.blank?
 
       # Get all targets whose links' kinds + receivers match.
       model = opts :model, Moogle::Target
       targets = model.all(
-        model.links.message_kind => request.kind,
+        model.links.message_kind => request.message_kind,
         model.links.receiver_ref => request.receiver_refs)
 
       # Create a new push request for each target found.
@@ -50,12 +55,16 @@ module Handlers
             target_id: target.id) do
           request_factory = request_factory_for target.type
           push_data = [
-            request.to_hash,
+            request.attributes,
             default_options,
-            target.options
+            target.options,
+            {
+              target_id: target.id,
+              message_origin: "#{request.message_kind}:#{request.uuid}:"
+            }
           ].reduce(&:merge)
           push_request = request_factory.build push_data
-          pusher_queue.push push_request
+          pusher_queue.push push_request.to_hash
         end
       end
 
@@ -76,7 +85,7 @@ module Handlers
       when 'Moogle::TwitterTarget'
         Moogle::Requests::PushTweet
       when 'Moogle::WebhookTarget'
-        Moogle::Requests::PushWebhook
+        Moogle::Requests::PushWebhookPing
       else
         raise ArgumentError, "Unsupported Target #{target_type}"
       end

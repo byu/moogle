@@ -1,6 +1,6 @@
 require 'aequitas'
 require 'serf/message'
-require 'uuidtools'
+require 'serf/more/uuid_fields'
 require 'virtus'
 
 module Moogle
@@ -14,6 +14,7 @@ module Events
     include Virtus
     include Aequitas
     include Serf::Message
+    include Serf::More::UuidFields
 
     ##
     # The target_id of the webhook recipient
@@ -27,16 +28,6 @@ module Events
     ##
     # The uri where we posted the callback
     attribute :webhook_uri, String
-
-    ##
-    # The uuid of the request.
-    attribute :request_uuid, String
-
-    ##
-    # This event's uuid.
-    attribute :uuid, String, default: lambda { |obj,attr|
-      UUIDTools::UUID.random_create.to_s
-    }
   end
 
 end
