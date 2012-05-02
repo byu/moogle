@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Benjamin Yu"]
-  s.date = "2012-04-20"
+  s.date = "2012-05-02"
   s.description = "Notification pushing to 3rd parties"
   s.email = "benjaminlyu@gmail.com"
   s.extra_rdoc_files = [
@@ -95,16 +95,16 @@ Gem::Specification.new do |s|
     s.specification_version = 3
 
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
-      s.add_runtime_dependency(%q<addressable>, ["~> 2.2.7"])
-      s.add_runtime_dependency(%q<aequitas>, ["~> 0.0.2"])
-      s.add_runtime_dependency(%q<data_mapper>, ["~> 1.2.0"])
-      s.add_runtime_dependency(%q<mail>, ["~> 2.4.3"])
-      s.add_runtime_dependency(%q<faraday>, ["~> 0.7.6"])
-      s.add_runtime_dependency(%q<rafaday>, ["~> 0.1.0"])
-      s.add_runtime_dependency(%q<roar>, ["~> 0.9.2"])
-      s.add_runtime_dependency(%q<serf>, ["~> 0.8.0"])
-      s.add_runtime_dependency(%q<uuidtools>, ["~> 2.1.2"])
-      s.add_runtime_dependency(%q<virtus>, ["~> 0.3.0"])
+      s.add_runtime_dependency(%q<addressable>, [">= 2.2.7"])
+      s.add_runtime_dependency(%q<aequitas>, [">= 0.0.2"])
+      s.add_runtime_dependency(%q<data_mapper>, [">= 1.2.0"])
+      s.add_runtime_dependency(%q<mail>, [">= 2.4.3"])
+      s.add_runtime_dependency(%q<faraday>, [">= 0.7.6"])
+      s.add_runtime_dependency(%q<rafaday>, [">= 0.1.0"])
+      s.add_runtime_dependency(%q<roar>, [">= 0.9.2"])
+      s.add_runtime_dependency(%q<serf>, [">= 0.8.0"])
+      s.add_runtime_dependency(%q<uuidtools>, [">= 2.1.2"])
+      s.add_runtime_dependency(%q<virtus>, [">= 0.3.0"])
       s.add_development_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_development_dependency(%q<yard>, ["~> 0.7.5"])
       s.add_development_dependency(%q<bundler>, ["~> 1.1.3"])
@@ -115,16 +115,16 @@ Gem::Specification.new do |s|
       s.add_development_dependency(%q<dm-sqlite-adapter>, [">= 0"])
       s.add_development_dependency(%q<dm-mysql-adapter>, [">= 0"])
     else
-      s.add_dependency(%q<addressable>, ["~> 2.2.7"])
-      s.add_dependency(%q<aequitas>, ["~> 0.0.2"])
-      s.add_dependency(%q<data_mapper>, ["~> 1.2.0"])
-      s.add_dependency(%q<mail>, ["~> 2.4.3"])
-      s.add_dependency(%q<faraday>, ["~> 0.7.6"])
-      s.add_dependency(%q<rafaday>, ["~> 0.1.0"])
-      s.add_dependency(%q<roar>, ["~> 0.9.2"])
-      s.add_dependency(%q<serf>, ["~> 0.8.0"])
-      s.add_dependency(%q<uuidtools>, ["~> 2.1.2"])
-      s.add_dependency(%q<virtus>, ["~> 0.3.0"])
+      s.add_dependency(%q<addressable>, [">= 2.2.7"])
+      s.add_dependency(%q<aequitas>, [">= 0.0.2"])
+      s.add_dependency(%q<data_mapper>, [">= 1.2.0"])
+      s.add_dependency(%q<mail>, [">= 2.4.3"])
+      s.add_dependency(%q<faraday>, [">= 0.7.6"])
+      s.add_dependency(%q<rafaday>, [">= 0.1.0"])
+      s.add_dependency(%q<roar>, [">= 0.9.2"])
+      s.add_dependency(%q<serf>, [">= 0.8.0"])
+      s.add_dependency(%q<uuidtools>, [">= 2.1.2"])
+      s.add_dependency(%q<virtus>, [">= 0.3.0"])
       s.add_dependency(%q<rspec>, ["~> 2.8.0"])
       s.add_dependency(%q<yard>, ["~> 0.7.5"])
       s.add_dependency(%q<bundler>, ["~> 1.1.3"])
@@ -136,16 +136,16 @@ Gem::Specification.new do |s|
       s.add_dependency(%q<dm-mysql-adapter>, [">= 0"])
     end
   else
-    s.add_dependency(%q<addressable>, ["~> 2.2.7"])
-    s.add_dependency(%q<aequitas>, ["~> 0.0.2"])
-    s.add_dependency(%q<data_mapper>, ["~> 1.2.0"])
-    s.add_dependency(%q<mail>, ["~> 2.4.3"])
-    s.add_dependency(%q<faraday>, ["~> 0.7.6"])
-    s.add_dependency(%q<rafaday>, ["~> 0.1.0"])
-    s.add_dependency(%q<roar>, ["~> 0.9.2"])
-    s.add_dependency(%q<serf>, ["~> 0.8.0"])
-    s.add_dependency(%q<uuidtools>, ["~> 2.1.2"])
-    s.add_dependency(%q<virtus>, ["~> 0.3.0"])
+    s.add_dependency(%q<addressable>, [">= 2.2.7"])
+    s.add_dependency(%q<aequitas>, [">= 0.0.2"])
+    s.add_dependency(%q<data_mapper>, [">= 1.2.0"])
+    s.add_dependency(%q<mail>, [">= 2.4.3"])
+    s.add_dependency(%q<faraday>, [">= 0.7.6"])
+    s.add_dependency(%q<rafaday>, [">= 0.1.0"])
+    s.add_dependency(%q<roar>, [">= 0.9.2"])
+    s.add_dependency(%q<serf>, [">= 0.8.0"])
+    s.add_dependency(%q<uuidtools>, [">= 2.1.2"])
+    s.add_dependency(%q<virtus>, [">= 0.3.0"])
     s.add_dependency(%q<rspec>, ["~> 2.8.0"])
     s.add_dependency(%q<yard>, ["~> 0.7.5"])
     s.add_dependency(%q<bundler>, ["~> 1.1.3"])
