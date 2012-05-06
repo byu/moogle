@@ -26,7 +26,7 @@ module Commands
       # Now, create the target, and raise on errors.
       target = target_model.create(
         owner_ref:  request.owner_ref,
-        options: request.options)
+        options: (request.options || {}))
       raise target.errors.full_messages.join('. ') unless target.saved?
 
       target_rep = target.dup.extend representer
