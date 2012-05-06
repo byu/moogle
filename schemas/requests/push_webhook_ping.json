@@ -1,0 +1,22 @@
+{
+  "description": "Kind: moogle/requests/push_webhook_ping",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": "integer"
+    },
+    "message_origin": {
+      "type": "string"
+    },
+    "data": {
+      "type": "string"
+    },
+    "webhook_uri": {
+      "type": "string",
+      "format": "uri"
+    },
+    "secret": {
+      "type": "string"
+    }
+  }
+}

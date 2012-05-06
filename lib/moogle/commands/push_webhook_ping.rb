@@ -1,10 +1,9 @@
 require 'addressable/uri'
 require 'faraday'
+require 'hashie'
 require 'rafaday/body_signing_middleware'
 require 'serf/command'
-
-require 'moogle/events/webhook_ping_pushed'
-require 'moogle/requests/push_webhook_ping'
+require 'serf/util/uuidable'
 
 module Moogle
 module Commands
@@ -14,8 +13,6 @@ module Commands
   #
   class PushWebhookPing
     include Serf::Command
-
-    self.request_factory = Moogle::Requests::PushWebhookPing
 
     def call
       # Options pulled from the delegated object
@@ -41,12 +38,14 @@ module Commands
         raise "PushWebhookPing (#{request.uuid}) failed: #{results.status}"
       end
 
-      event_class = opts :event_class, Moogle::Events::WebhookPingPushed
-      return event_class.new(
-        request.create_child_uuids.merge(
-          message_origin: request.message_origin,
-          target_id: request.target_id,
-          webhook_uri: request.webhook_uri))
+      # Return an event representing this action.
+      event = Hashie::Mash.new(
+        kind: 'moogle/events/webhook_ping_pushed',
+        message_origin: request.message_origin,
+        target_id: request.target_id,
+        webhook_uri: request.webhook_uri)
+      Serf::Util::Uuidable.annotate_with_uuids! event, request
+      return event
     rescue => e
       e.extend Moogle::Error
       raise e

@@ -1,0 +1,9 @@
+{
+  "description": "Kind: moogle/events/link_created",
+  "properties": {
+    "link": {
+      "type": "object",
+      "required": true
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "description": "Kind: moogle/events/target_destroyed",
+  "properties": {
+    "target_id": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

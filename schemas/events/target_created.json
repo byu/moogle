@@ -1,0 +1,9 @@
+{
+  "description": "Kind: moogle/events/target_created",
+  "properties": {
+    "target": {
+      "type": "object",
+      "required": true
+    }
+  }
+}

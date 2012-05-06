@@ -1,0 +1,43 @@
+{
+  "description": "Kind: moogle/requests/push_blog_entry",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": "integer"
+    },
+    "message_origin": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "html_body": {
+      "type": "string"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+
+    "rpc_uri": {
+      "type": "string"
+    },
+    "blog_id": {
+      "type": "string"
+    },
+    "username": {
+      "type": "string"
+    },
+    "password": {
+      "type": "string"
+    },
+    "blog_uri": {
+      "type": "string"
+    },
+    "publish_immediately": {
+      "type": "boolean"
+    }
+  }
+}

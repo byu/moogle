@@ -11,12 +11,9 @@ describe 'Moogle::Commands::FindTargets' do
         Moogle::Link.new
       ])
   }
-  let(:request_hash) {{
+  let(:request) {{
     owner_ref: 'System:1a'
   }}
-  let(:request) {
-    Moogle::Requests::FindTargets.new request_hash
-  }
   let(:command) {
     Moogle::Commands::FindTargets
   }

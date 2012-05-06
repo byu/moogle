@@ -8,14 +8,12 @@ describe 'Moogle::Commands::CreateLink' do
         'webhook_uri' => 'http://example.com/target'
       })
   }
-  let(:request_hash) {{
+  let(:request) {{
     target_id: existing_target.id,
     receiver_ref: 'Gym:1',
-    message_kind: 'my_message_kind'
+    message_kind: 'my_message_kind',
+    uuid: 'abc_uuid'
   }}
-  let(:request) {
-    Moogle::Requests::CreateLink.new request_hash
-  }
   let(:command) {
     Moogle::Commands::CreateLink
   }
@@ -23,37 +21,28 @@ describe 'Moogle::Commands::CreateLink' do
   it 'should create a link' do
     result = command.call request
     result.kind.should == 'moogle/events/link_created'
-    result.parent_uuid.should == request.uuid
-    result.link.message_kind.should == 'my_message_kind'
-    result.link.receiver_ref.should == 'Gym:1'
-  end
-
-  it 'should be able to parse a hash as request' do
-    result = command.call request
-    result.kind.should == 'moogle/events/link_created'
+    result.parent_uuid.should == request[:uuid]
     result.link.message_kind.should == 'my_message_kind'
     result.link.receiver_ref.should == 'Gym:1'
   end
 end
 
 describe 'Moogle::Commands::DestroyLink' do
-  let(:request_hash) {{
-    link_id: 12345
+  let(:request) {{
+    link_id: 12345,
+    uuid: 'abc_uuid'
   }}
   let(:command) {
     Moogle::Commands::DestroyLink
   }
 
   describe 'with non-existent link' do
-    let(:request) {
-      Moogle::Requests::DestroyLink.new request_hash
-    }
 
     it 'should succeed' do
       result = command.call request
       result.kind.should == 'moogle/events/link_destroyed'
       result.link_id.should == 12345
-      result.parent_uuid.should == request.uuid
+      result.parent_uuid.should == request[:uuid]
     end
   end
 
@@ -67,26 +56,20 @@ describe 'Moogle::Commands::DestroyLink' do
     }
     let(:existing_link) {
       Moogle::Commands::CreateLink.call(
-        Moogle::Requests::CreateLink.new(
-          target_id: existing_target.id,
-          receiver_ref: 'Gym:1',
-          message_kind: 'my_message_kind')).link
+        target_id: existing_target.id,
+        receiver_ref: 'Gym:1',
+        message_kind: 'my_message_kind')['link']
     }
-    let(:request) {
-      Moogle::Requests::DestroyLink.new link_id: existing_link.id
-    }
+    let(:request) {{
+      link_id: existing_link.id,
+      uuid: 'abc_uuid'
+    }}
 
     it 'should succeed' do
       result = command.call request
       result.kind.should == 'moogle/events/link_destroyed'
       result.link_id.should == existing_link.id
-      result.parent_uuid.should == request.uuid
+      result.parent_uuid.should == request[:uuid]
     end
-  end
-
-  it 'should be able to parse a hash as request' do
-    result = command.call request_hash
-    result.kind.should == 'moogle/events/link_destroyed'
-    result.link_id.should == 12345
   end
 end

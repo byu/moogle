@@ -1,0 +1,41 @@
+{
+  "description": "Kind: moogle/requests/push_email",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": "integer"
+    },
+    "message_origin": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string",
+      "required": true
+    },
+    "text_body": {
+      "type": "string",
+      "required": true
+    },
+    "html_body": {
+      "type": "string"
+    },
+    "html_content_type": {
+      "type": "string",
+      "default": "text/html; charset=UTF-8"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "to": {
+      "type": "string",
+      "required": true
+    },
+    "from": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

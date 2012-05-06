@@ -1,0 +1,14 @@
+{
+  "description": "Kind: moogle/events/webhook_ping_pushed",
+  "properties": {
+    "target_id": {
+      "type": "integer"
+    },
+    "message_origin": {
+      "type": "string"
+    },
+    "webhook_uri": {
+      "type": "string"
+    }
+  }
+}

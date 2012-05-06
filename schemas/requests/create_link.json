@@ -1,0 +1,18 @@
+{
+  "description": "Kind: moogle/requests/create_link",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": "integer",
+      "required": true
+    },
+    "receiver_ref": {
+      "type": "string",
+      "required": true
+    },
+    "message_kind": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

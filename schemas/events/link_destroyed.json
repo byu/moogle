@@ -1,0 +1,9 @@
+{
+  "description": "Kind: moogle/events/link_created",
+  "properties": {
+    "link_id": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

@@ -1,6 +1,0 @@
-require 'moogle/requests/create_link'
-require 'moogle/requests/create_target'
-require 'moogle/requests/destroy_link'
-require 'moogle/requests/destroy_target'
-require 'moogle/requests/find_targets'
-require 'moogle/requests/update_target'

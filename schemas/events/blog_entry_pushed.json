@@ -1,0 +1,14 @@
+{
+  "description": "Kind: moogle/events/blog_entry_pushed",
+  "properties": {
+    "target_id": {
+      "type": "integer"
+    },
+    "message_origin": {
+      "type": "string"
+    },
+    "post_ref": {
+      "type": "string"
+    }
+  }
+}

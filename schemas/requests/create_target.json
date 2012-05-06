@@ -1,0 +1,18 @@
+{
+  "description": "Kind: moogle/requests/create_target",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string",
+      "required": true
+    },
+    "owner_ref": {
+      "type": "string",
+      "required": true
+    },
+    "options": {
+      "type": "array",
+      "default": []
+    }
+  }
+}

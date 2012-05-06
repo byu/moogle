@@ -2,14 +2,7 @@ require 'active_support/core_ext/object/blank'
 require 'serf/command'
 require 'serf/util/error_handling'
 
-require 'moogle/events/error'
-require 'moogle/messages/notification'
 require 'moogle/models'
-require 'moogle/requests/push_blog_entry'
-require 'moogle/requests/push_email'
-#require 'moogle/requests/push_facebook_action'
-#require 'moogle/requests/push_tweet'
-require 'moogle/requests/push_webhook_ping'
 
 module Moogle
 module Handlers
@@ -21,8 +14,6 @@ module Handlers
   class AcceptNotification
     include Serf::Command
     include Serf::Util::ErrorHandling
-
-    self.request_factory = Moogle::Messages::Notification
 
     attr_reader :pusher_queue
     attr_reader :default_options
@@ -53,18 +44,16 @@ module Handlers
             kind: 'moogle/handlers/accept_notification',
             request: request.to_hash,
             target_id: target.id) do
-          request_factory = request_factory_for target.type
           push_data = [
-            request.attributes,
-            default_options,
-            target.options,
-            {
+            Hashie::Mash.new(default_options),
+            Hashie::Mash.new(target.options),
+            Hashie::Mash.new(request),
+            Hashie::Mash.new({
               target_id: target.id,
               message_origin: "#{request.message_kind}:#{request.uuid}:"
-            }
+            })
           ].reduce(&:merge)
-          push_request = request_factory.build push_data
-          pusher_queue.push push_request.to_hash
+          pusher_queue.push filtered_attributes_for(target.type, push_data)
         end
       end
 
@@ -74,21 +63,46 @@ module Handlers
       raise e
     end
 
-    def request_factory_for(target_type)
-      case target_type.to_s
+    def filtered_attributes_for(target_type, attributes)
+      filters = case target_type.to_s
       when 'Moogle::BlogTarget'
-        Moogle::Requests::PushBlogEntry
+        [
+          :target_id,
+          :message_origin,
+          :subject,
+          :html_body,
+          :categories,
+          :rpc_uri,
+          :blog_id,
+          :username,
+          :password,
+          :blog_uri,
+          :publish_immediately
+        ]
       when 'Moogle::EmailTarget'
-        Moogle::Requests::PushEmail
-      #when 'Moogle::FacebookTarget'
-      #  Moogle::Requests::PushFacebookAction
-      #when 'Moogle::TwitterTarget'
-      #  Moogle::Requests::PushTweet
+        [
+          :target_id,
+          :message_origin,
+          :subject,
+          :text_body,
+          :html_body,
+          :html_content_type,
+          :categories,
+          :to,
+          :from
+        ]
       when 'Moogle::WebhookTarget'
-        Moogle::Requests::PushWebhookPing
+        [
+          :target_id,
+          :message_origin,
+          :data,
+          :webhook_uri,
+          :secret
+        ]
       else
         raise ArgumentError, "Unsupported Target #{target_type}"
       end
+      return attributes.reject { |k| !filters.include?(k.to_sym) }
     end
   end
 

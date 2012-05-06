@@ -1,8 +1,8 @@
+require 'hashie'
 require 'serf/command'
+require 'serf/util/uuidable'
 
 require 'moogle/error'
-require 'moogle/events/target_updated'
-require 'moogle/requests/update_target'
 require 'moogle/models'
 
 module Moogle
@@ -11,11 +11,8 @@ module Commands
   class UpdateTarget
     include Serf::Command
 
-    self.request_factory = Moogle::Requests::UpdateTarget
-
     def call
       target_model = opts :target_model, Moogle::Target
-      event_class = opts :event_class, Moogle::Events::TargetUpdated
       representer = opts :representer, Moogle::TargetRepresenter
 
       target = target_model.get request.target_id
@@ -26,7 +23,11 @@ module Commands
 
       target_rep = target.dup.extend representer
 
-      return event_class.new request.create_child_uuids.merge(target: target)
+      event = Hashie::Mash.new(
+        kind: 'moogle/events/target_updated',
+        target: target_rep.to_hash)
+      Serf::Util::Uuidable.annotate_with_uuids! event, request
+      return event
     rescue => e
       e.extend Moogle::Error
       raise e

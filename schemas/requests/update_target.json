@@ -1,0 +1,14 @@
+{
+  "description": "Kind: moogle/requests/create_target",
+  "type": "object",
+  "properties": {
+    "target_id": {
+      "type": "integer",
+      "required": true
+    },
+    "options": {
+      "type": "array",
+      "default": []
+    }
+  }
+}

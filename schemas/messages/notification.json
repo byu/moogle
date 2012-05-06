@@ -1,0 +1,40 @@
+{
+  "description": "Kind: moogle/messages/notification",
+  "type": "object",
+  "properties": {
+    "receiver_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "message_kind": {
+      "type": "string"
+    },
+    "subject": {
+      "type": "string"
+    },
+    "text_body": {
+      "type": "string"
+    },
+    "html_body": {
+      "type": "string"
+    },
+    "html_content_type": {
+      "type": "string",
+      "default": "text/html; charset=UTF-8"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "short_body": {
+      "type": "string"
+    },
+    "data": {
+      "type": "string"
+    }
+  }
+}

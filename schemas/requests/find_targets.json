@@ -1,0 +1,10 @@
+{
+  "description": "Kind: moogle/requests/find_targets",
+  "type": "object",
+  "properties": {
+    "owner_ref": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

@@ -43,7 +43,7 @@ describe 'Moogle::Handlers::AcceptNotification' do
       pusher_queue: pusher_queue,
       error_channel: error_channel)
     results.should be_nil
-    pusher_queue.first.class.should == Hash
+    pusher_queue.first.kind_of?(Hash).should be_true
     pusher_queue.first[:subject].should == 'Subject'
     pusher_queue.first[:html_body].should == 'My Html Body'
     pusher_queue.first[:text_body].should == 'Text Body'

@@ -1,9 +1,10 @@
+require 'addressable/uri'
+require 'hashie'
 require 'serf/command'
+require 'serf/util/uuidable'
 require 'xmlrpc/client'
 
 require 'moogle/error'
-require 'moogle/events/blog_entry_pushed'
-require 'moogle/requests/push_blog_entry'
 
 module Moogle
 module Commands
@@ -14,14 +15,19 @@ module Commands
   class PushBlogEntry
     include Serf::Command
 
-    self.request_factory = Moogle::Requests::PushBlogEntry
+    def initialize
+      uri = Addressable::URI.parse request.rpc_uri
+      request.host = uri.host
+      request.path = uri.path
+      request.port = uri.port
+    end
 
     def call
       # Xml-Rpc server
       server = XMLRPC::Client.new request.host, request.path, request.port
 
       # Makes the metaWeblog new post API call
-      post_ref = server.call(
+      post_params = [
         'metaWeblog.newPost',
         request.blog_id,
         request.username,
@@ -32,15 +38,18 @@ module Commands
           'description' => request.html_body,
           'categories' => request.categories
         },
-        request.publish_immediately)
+        request.publish_immediately
+      ]
+      post_ref = server.call *post_params
 
       # Return an event representing this action.
-      event_class = opts :event_class, Moogle::Events::BlogEntryPushed
-      return event_class.new(
-        request.create_child_uuids.merge(
-          message_origin: request.message_origin,
-          target_id: request.target_id,
-          post_ref: post_ref))
+      event = Hashie::Mash.new(
+        kind: 'moogle/events/blog_entry_pushed',
+        message_origin: request.message_origin,
+        target_id: request.target_id,
+        post_ref: post_ref)
+      Serf::Util::Uuidable.annotate_with_uuids! event, request
+      return event
     rescue XMLRPC::FaultException => e
       e.extend Moogle::Error
       raise e

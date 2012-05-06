@@ -1,8 +1,7 @@
+require 'hashie'
 require 'mail'
 require 'serf/command'
-
-require 'moogle/events/email_pushed'
-require 'moogle/requests/push_email'
+require 'serf/util/uuidable'
 
 module Moogle
 module Commands
@@ -12,8 +11,6 @@ module Commands
   #
   class PushEmail
     include Serf::Command
-
-    self.request_factory = Moogle::Requests::PushEmail
 
     def call
       mail_class = opts :mail_class, Mail
@@ -47,12 +44,13 @@ module Commands
       mail.deliver!
 
       # Return an event representing this action.
-      event_class = opts :event_class, Moogle::Events::EmailPushed
-      return event_class.new(
-        request.create_child_uuids.merge(
-          message_origin: request.message_origin,
-          target_id: request.target_id,
-          request: request))
+      event = Hashie::Mash.new(
+        kind: 'moogle/events/email_pushed',
+        message_origin: request.message_origin,
+        target_id: request.target_id,
+        request: request)
+      Serf::Util::Uuidable.annotate_with_uuids! event, request
+      return event
     end
   end
 

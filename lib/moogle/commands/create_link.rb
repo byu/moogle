@@ -1,8 +1,8 @@
+require 'hashie'
 require 'serf/command'
+require 'serf/util/uuidable'
 
 require 'moogle/error'
-require 'moogle/events/link_created'
-require 'moogle/requests/create_link'
 require 'moogle/models'
 require 'moogle/representers/link_representer'
 
@@ -12,12 +12,9 @@ module Commands
   class CreateLink
     include Serf::Command
 
-    self.request_factory = Moogle::Requests::CreateLink
-
     def call
       link_model = opts :link_model, Moogle::Link
       target_model = opts :target_model, Moogle::Target
-      event_class = opts :event_class, Moogle::Events::LinkCreated
       representer = opts :representer, Moogle::LinkRepresenter
 
       target = target_model.get request.target_id
@@ -33,7 +30,12 @@ module Commands
       raise link.errors.full_messages.join('. ') unless link.saved?
 
       link_rep = link.dup.extend representer
-      return event_class.new request.create_child_uuids.merge(link: link_rep)
+
+      event = Hashie::Mash.new(
+        kind: 'moogle/events/link_created',
+        link: link_rep.to_hash)
+      Serf::Util::Uuidable.annotate_with_uuids! event, request
+      return event
     rescue => e
       e.extend Moogle::Error
       raise e

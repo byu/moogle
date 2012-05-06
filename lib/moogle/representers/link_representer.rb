@@ -9,8 +9,6 @@ module Moogle
     property :id
     property :receiver_ref
     property :message_kind
-    property :render_options
-    property :suspended
     property :created_at
     property :updated_at
 
