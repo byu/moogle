@@ -1,6 +1,7 @@
 require 'active_support/core_ext/object/blank'
 require 'serf/command'
 require 'serf/util/error_handling'
+require 'serf/util/uuidable'
 
 require 'moogle/models'
 
@@ -59,7 +60,9 @@ module Handlers
               message_origin: "#{request.message_kind}:#{request.uuid}:"
             })
           ].reduce(&:merge)
-          pusher_queue.push filtered_attributes_for(target.type, push_data)
+          new_request = filtered_attributes_for target.type, push_data
+          Serf::Util::Uuidable.annotate_with_uuids! new_request, request
+          pusher_queue.push new_request
         end
       end
 
