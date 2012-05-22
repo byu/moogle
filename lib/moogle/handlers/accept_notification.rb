@@ -22,6 +22,12 @@ module Handlers
       'from' => 'no-reply@example.com'
     }.freeze
 
+    KIND_MAP = {
+      'Moogle::BlogTarget' => 'moogle/requests/push_blog_entry',
+      'Moogle::EmailTarget' => 'moogle/requests/push_email',
+      'Moogle::WebhookTarget' => 'moogle/requests/push_webhook_ping'
+    }.freeze
+
     def initialize
       @pusher_queue = opts! :pusher_queue
       @default_options = opts :default_push_options, DEFAULT_PUSH_OPTIONS
@@ -102,7 +108,9 @@ module Handlers
       else
         raise ArgumentError, "Unsupported Target #{target_type}"
       end
-      return attributes.reject { |k| !filters.include?(k.to_sym) }
+      new_attributes =  attributes.reject { |k| !filters.include?(k.to_sym) }
+      new_attributes['kind'] = KIND_MAP[target_type.to_s]
+      return new_attributes
     end
   end
 
