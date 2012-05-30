@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: post
-    uri: http://www.example.com/?sig=1dc41d1c2057247a613e0ca8571015ecc15629ec
+    uri: http://www.example.com/
     body:
       encoding: US-ASCII
       string: ! '{}'

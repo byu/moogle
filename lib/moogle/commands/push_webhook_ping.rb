@@ -1,7 +1,6 @@
 require 'addressable/uri'
 require 'faraday'
 require 'hashie'
-require 'rafaday/body_signing_middleware'
 require 'serf/command'
 require 'serf/util/uuidable'
 
@@ -23,13 +22,9 @@ module Commands
       ssl_opt = opts :ssl_opt
 
       webhook_uri = Addressable::URI.parse request.webhook_uri
-      secret = request.secret
 
       # Build request and make it.
       conn = Faraday.new url: webhook_uri.origin, ssl: ssl_opt do |b|
-        # Signs the post body, adds 'sig' to query parameters.
-        b.use Rafaday::BodySigningMiddleware, secret: secret if secret
-
         b.response :raise_error
         b.adapter  :net_http
       end
