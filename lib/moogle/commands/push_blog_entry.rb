@@ -15,14 +15,16 @@ module Commands
   class PushBlogEntry
     include Serf::Command
 
-    def initialize
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       uri = Addressable::URI.parse request.rpc_uri
       request.host = uri.host
       request.path = uri.path
       request.port = uri.port
-    end
 
-    def call
       # Xml-Rpc server
       server = XMLRPC::Client.new request.host, request.path, request.port
 

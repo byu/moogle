@@ -11,7 +11,11 @@ module Commands
   class DestroyLink
     include Serf::Command
 
-    def call
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       link_model = opts :link_model, Moogle::Link
 
       link_id = request.link_id

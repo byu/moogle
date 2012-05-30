@@ -12,7 +12,11 @@ module Commands
   class PushEmail
     include Serf::Command
 
-    def call
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       mail_class = opts :mail_class, Mail
 
       # Create the mail object to send, get a local var 'req' so it is

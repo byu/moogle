@@ -14,7 +14,6 @@ module Handlers
   #
   class AcceptNotification
     include Serf::Command
-    include Serf::Util::ErrorHandling
 
     attr_reader :pusher_queue
     attr_reader :default_options
@@ -29,12 +28,14 @@ module Handlers
       'Moogle::WebhookTarget' => 'moogle/requests/push_webhook_ping'
     }.freeze
 
-    def initialize
+    def initialize(*args)
+      extract_options! args
+
       @pusher_queue = opts! :pusher_queue
       @default_options = opts :default_push_options, DEFAULT_PUSH_OPTIONS
     end
 
-    def call
+    def call(request, context=nil)
       return nil if request.receiver_refs.blank? || request.message_kind.blank?
 
       # Get all targets whose links' kinds + receivers match.
@@ -62,7 +63,7 @@ module Handlers
           ].reduce(&:merge)
           new_request = filtered_attributes_for target.type, push_data
           Serf::Util::Uuidable.annotate_with_uuids! new_request, request
-          pusher_queue.push new_request
+          pusher_queue.push message: new_request, context: context
         end
       end
 

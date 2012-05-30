@@ -1,18 +1,19 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'Moogle::Commands::CreateTarget' do
-  let(:request) {{
-    type: :blog,
-    owner_ref: 'System:1',
-    options: {
-      'rpc_uri' => 'http://example.com/target',
-      'blog_uri' => 'http://example.com/',
-      'blog_id' => 'example_blog_name',
-      'username' => 'username',
-      'password' => 'password',
-      'publish_immediately' => true
-    }
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      type: :blog,
+      owner_ref: 'System:1',
+      options: {
+        'rpc_uri' => 'http://example.com/target',
+        'blog_uri' => 'http://example.com/',
+        'blog_id' => 'example_blog_name',
+        'username' => 'username',
+        'password' => 'password',
+        'publish_immediately' => true
+      })
+  }
   let(:command) {
     Moogle::Commands::CreateTarget
   }
@@ -35,9 +36,10 @@ describe 'Moogle::Commands::CreateTarget' do
 end
 
 describe 'Moogle::Commands::DestroyTarget' do
-  let(:request) {{
-    target_id: 12345
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      target_id: 12345)
+  }
   let(:command) {
     Moogle::Commands::DestroyTarget
   }
@@ -64,9 +66,10 @@ describe 'Moogle::Commands::DestroyTarget' do
           'publish_immediately' => true
         })
     }
-    let(:request) {{
-      target_id: existing_target.id
-    }}
+    let(:request) {
+      Hashie::Mash.new(
+        target_id: existing_target.id)
+    }
 
     it 'should succeed' do
       result = command.call request
@@ -90,17 +93,18 @@ describe 'Moogle::Commands::UpdateTarget' do
         'publish_immediately' => true
       })
   }
-  let(:request) {{
-    target_id: existing_target.id,
-    options: {
-      'rpc_uri' => 'http://example.com/target',
-      'blog_uri' => 'http://example.com/',
-      'blog_id' => 'example_blog_name',
-      'username' => 'username',
-      'password' => 'password',
-      'publish_immediately' => false
-    }
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      target_id: existing_target.id,
+      options: {
+        'rpc_uri' => 'http://example.com/target',
+        'blog_uri' => 'http://example.com/',
+        'blog_id' => 'example_blog_name',
+        'username' => 'username',
+        'password' => 'password',
+        'publish_immediately' => false
+      })
+  }
   let(:command) {
     Moogle::Commands::UpdateTarget
   }

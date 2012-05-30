@@ -12,7 +12,11 @@ module Commands
   class CreateLink
     include Serf::Command
 
-    def call
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       link_model = opts :link_model, Moogle::Link
       target_model = opts :target_model, Moogle::Target
       representer = opts :representer, Moogle::LinkRepresenter

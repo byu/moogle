@@ -12,7 +12,11 @@ module Commands
   class FindTargets
     include Serf::Command
 
-    def call
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       target_model = opts :target_model, Moogle::Target
       representer = opts :representer, Moogle::TargetRepresenter
 

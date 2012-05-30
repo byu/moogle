@@ -8,12 +8,13 @@ describe 'Moogle::Commands::CreateLink' do
         'webhook_uri' => 'http://example.com/target'
       })
   }
-  let(:request) {{
-    target_id: existing_target.id,
-    receiver_ref: 'Gym:1',
-    message_kind: 'my_message_kind',
-    uuid: 'abc_uuid'
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      target_id: existing_target.id,
+      receiver_ref: 'Gym:1',
+      message_kind: 'my_message_kind',
+      uuid: 'abc_uuid')
+  }
   let(:command) {
     Moogle::Commands::CreateLink
   }
@@ -28,10 +29,11 @@ describe 'Moogle::Commands::CreateLink' do
 end
 
 describe 'Moogle::Commands::DestroyLink' do
-  let(:request) {{
-    link_id: 12345,
-    uuid: 'abc_uuid'
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      link_id: 12345,
+      uuid: 'abc_uuid')
+  }
   let(:command) {
     Moogle::Commands::DestroyLink
   }
@@ -56,14 +58,17 @@ describe 'Moogle::Commands::DestroyLink' do
     }
     let(:existing_link) {
       Moogle::Commands::CreateLink.call(
-        target_id: existing_target.id,
-        receiver_ref: 'Gym:1',
-        message_kind: 'my_message_kind')['link']
+        Hashie::Mash.new(
+          target_id: existing_target.id,
+          receiver_ref: 'Gym:1',
+          message_kind: 'my_message_kind'
+        ))['link']
     }
-    let(:request) {{
-      link_id: existing_link.id,
-      uuid: 'abc_uuid'
-    }}
+    let(:request) {
+      Hashie::Mash.new(
+        link_id: existing_link.id,
+        uuid: 'abc_uuid')
+    }
 
     it 'should succeed' do
       result = command.call request

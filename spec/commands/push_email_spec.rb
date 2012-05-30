@@ -7,25 +7,24 @@ describe 'Moogle::Commands::PushEmail' do
     end
   end
 
-  let(:request) {{
-    uuid: '85d9e997-6dcd-499e-9a5d-09dc0dc8c3b4',
-    target_id: 1,
-    message_origin: 'btwb/events/daily_wod_created',
-    subject: 'My Test Subject',
-    text_body: 'This is a text email',
-    html_body: 'This is an html body email',
-    categories: ['tag1'],
-    to: 'user@example.com',
-    from: 'from_user@example.com'
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      uuid: '85d9e997-6dcd-499e-9a5d-09dc0dc8c3b4',
+      target_id: 1,
+      message_origin: 'btwb/events/daily_wod_created',
+      subject: 'My Test Subject',
+      text_body: 'This is a text email',
+      html_body: 'This is an html body email',
+      categories: ['tag1'],
+      to: 'user@example.com',
+      from: 'from_user@example.com')
+  }
   let(:command) {
     Moogle::Commands::PushEmail
   }
-  let(:options) {{
-  }}
 
   it 'should push an email' do
-    result = command.call request, options
+    result = command.call request
     result.kind.should == 'moogle/events/email_pushed'
 
     result.target_id.should == request[:target_id]

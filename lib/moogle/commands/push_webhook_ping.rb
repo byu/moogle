@@ -14,7 +14,11 @@ module Commands
   class PushWebhookPing
     include Serf::Command
 
-    def call
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       # Options pulled from the delegated object
       ssl_opt = opts :ssl_opt
 

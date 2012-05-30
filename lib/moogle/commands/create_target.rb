@@ -13,10 +13,14 @@ module Commands
   class CreateTarget
     include Serf::Command
 
+    def initialize(*args)
+      extract_options! args
+    end
+
     ##
     # @return [Moogle::Target] the created target, properly subclassed by type.
     #
-    def call
+    def call(request, context=nil)
       representer = opts :representer, Moogle::TargetRepresenter
 
       # Determine our model class name, and get the constant.

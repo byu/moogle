@@ -1,20 +1,21 @@
 require File.expand_path(File.dirname(__FILE__) + '/../spec_helper')
 
 describe 'Moogle::Commands::PushBlogEntry' do
-  let(:request) {{
-    target_id: 1,
-    message_origin: 'btwb/events/workout_session_created',
-    subject: 'My Test Title',
-    html_body: 'Body of the blog post',
-    categories: ['tag1', 'tag2'],
-    rpc_uri: 'http://example.wordpress.com/xmlrpc.php',
-    blog_uri: 'http://example.wordpress.com/',
-    blog_id: 'my_blog_id',
-    username: 'user@example.com',
-    password: 'password',
-    publish_immediately: true,
-    uuid: '85d9e997-6dcd-499e-9a5d-09dc0dc8c3b4'
-  }}
+  let(:request) {
+    Hashie::Mash.new(
+      target_id: 1,
+      message_origin: 'btwb/events/workout_session_created',
+      subject: 'My Test Title',
+      html_body: 'Body of the blog post',
+      categories: ['tag1', 'tag2'],
+      rpc_uri: 'http://example.wordpress.com/xmlrpc.php',
+      blog_uri: 'http://example.wordpress.com/',
+      blog_id: 'my_blog_id',
+      username: 'user@example.com',
+      password: 'password',
+      publish_immediately: true,
+      uuid: '85d9e997-6dcd-499e-9a5d-09dc0dc8c3b4')
+  }
   let(:command) {
     Moogle::Commands::PushBlogEntry
   }

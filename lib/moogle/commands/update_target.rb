@@ -11,14 +11,18 @@ module Commands
   class UpdateTarget
     include Serf::Command
 
-    def call
+    def initialize(*args)
+      extract_options! args
+    end
+
+    def call(request, context=nil)
       target_model = opts :target_model, Moogle::Target
       representer = opts :representer, Moogle::TargetRepresenter
 
       target = target_model.get request.target_id
       raise '404 Not found' unless target
 
-      result = target.update update_params
+      result = target.update update_params(request)
       raise target.errors.full_messages.join('; ') unless target.saved?
 
       target_rep = target.dup.extend representer
@@ -35,7 +39,7 @@ module Commands
 
     protected
 
-    def update_params
+    def update_params(request)
       { options: request.options }
     end
 
