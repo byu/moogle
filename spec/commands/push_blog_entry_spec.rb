@@ -22,7 +22,7 @@ describe 'Moogle::Commands::PushBlogEntry' do
 
   it 'should push a blog entry' do
     VCR.use_cassette('push_blog_entry') do
-      result = command.call request
+      result = command.call nil, request
       result.kind.should == 'moogle/events/blog_entry_pushed'
       result.post_ref.should == '61'
       result.target_id.should == request[:target_id]

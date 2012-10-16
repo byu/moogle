@@ -20,7 +20,7 @@ describe 'Moogle::Commands::CreateLink' do
   }
 
   it 'should create a link' do
-    result = command.call request
+    result = command.call nil, request
     result.kind.should == 'moogle/events/link_created'
     result.parent_uuid.should == request[:uuid]
     result.link.message_kind.should == 'my_message_kind'
@@ -41,7 +41,7 @@ describe 'Moogle::Commands::DestroyLink' do
   describe 'with non-existent link' do
 
     it 'should succeed' do
-      result = command.call request
+      result = command.call nil, request
       result.kind.should == 'moogle/events/link_destroyed'
       result.link_id.should == 12345
       result.parent_uuid.should == request[:uuid]
@@ -58,6 +58,7 @@ describe 'Moogle::Commands::DestroyLink' do
     }
     let(:existing_link) {
       Moogle::Commands::CreateLink.call(
+        nil,
         Hashie::Mash.new(
           target_id: existing_target.id,
           receiver_ref: 'Gym:1',
@@ -71,7 +72,7 @@ describe 'Moogle::Commands::DestroyLink' do
     }
 
     it 'should succeed' do
-      result = command.call request
+      result = command.call nil, request
       result.kind.should == 'moogle/events/link_destroyed'
       result.link_id.should == existing_link.id
       result.parent_uuid.should == request[:uuid]

@@ -19,7 +19,7 @@ module Commands
       extract_options! args
     end
 
-    def call(request, context=nil)
+    def call(headers, request)
       uri = Addressable::URI.parse request.rpc_uri
       request.host = uri.host
       request.path = uri.path

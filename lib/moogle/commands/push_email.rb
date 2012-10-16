@@ -16,7 +16,7 @@ module Commands
       extract_options! args
     end
 
-    def call(request, context=nil)
+    def call(headers, request)
       mail_class = opts :mail_class, Mail
 
       # Create the mail object to send, get a local var 'req' so it is

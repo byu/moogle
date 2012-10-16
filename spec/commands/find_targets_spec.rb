@@ -20,7 +20,7 @@ describe 'Moogle::Commands::FindTargets' do
   }
 
   it 'should find the target with link' do
-    result = command.call request
+    result = command.call nil, request
     result.size.should == 1
     result.first.kind.should == 'moogle/domain/target'
     result.first.owner_ref.should == 'System:1a'

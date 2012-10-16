@@ -16,7 +16,7 @@ describe 'Moogle::Commands::PushWebhookPing' do
 
   it 'should push a ping' do
     VCR.use_cassette('push_webhook_ping') do
-      result = command.call request
+      result = command.call nil, request
       result.kind.should == 'moogle/events/webhook_ping_pushed'
 
       result.webhook_uri.should == request[:webhook_uri]

@@ -16,7 +16,7 @@ module Commands
       extract_options! args
     end
 
-    def call(request, context=nil)
+    def call(headers, request)
       link_model = opts :link_model, Moogle::Link
       target_model = opts :target_model, Moogle::Target
       representer = opts :representer, Moogle::LinkRepresenter

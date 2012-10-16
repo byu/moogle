@@ -3,14 +3,12 @@ source "http://rubygems.org"
 # Example:
 #   gem "activesupport", ">= 2.3.5"
 
-gem 'addressable', '>= 2.2.7'
+gem 'addressable', '~> 2.2.7'
 gem 'data_mapper', '>= 1.2.0'
 gem 'mail', '>= 2.4.3'
 gem 'faraday', '>= 0.7.6'
 gem 'roar', '>= 0.9.2'
-gem 'serf', '>= 0.10.0'
-#gem 'serf', git: 'https://github.com/byu/serf.git', branch: 'develop'
-#gem 'serf', path: '../serf'
+gem 'serf', git: 'https://github.com/byu/serf.git', branch: 'develop'
 gem 'uuidtools', '>= 2.1.2'
 
 gem 'hashie'
@@ -18,14 +16,14 @@ gem 'hashie'
 # Add dependencies to develop your gem here.
 # Include everything needed to run rake, tests, features, etc.
 group :development do
-  gem "rspec", "~> 2.8.0"
-  gem "yard", "~> 0.7.5"
-  gem "bundler", "~> 1.1.3"
-  gem "jeweler", "~> 1.8.3"
-  gem 'simplecov', '>= 0'
+  gem "rspec"
+  gem "yard"
+  gem "bundler"
+  gem 'simplecov'
+  gem 'jeweler'
 
-  gem 'vcr', '~> 2.0.0'
-  gem 'webmock', '~> 1.8.1'
+  gem 'vcr'
+  gem 'webmock'
 
   gem 'dm-sqlite-adapter'
   gem 'dm-mysql-adapter'

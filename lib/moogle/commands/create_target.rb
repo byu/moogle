@@ -20,7 +20,7 @@ module Commands
     ##
     # @return [Moogle::Target] the created target, properly subclassed by type.
     #
-    def call(request, context=nil)
+    def call(headers, request)
       representer = opts :representer, Moogle::TargetRepresenter
 
       # Determine our model class name, and get the constant.

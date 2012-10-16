@@ -15,7 +15,7 @@ module Commands
       extract_options! args
     end
 
-    def call(request, context=nil)
+    def call(headers, request)
       target_model = opts :target_model, Moogle::Target
       representer = opts :representer, Moogle::TargetRepresenter
 

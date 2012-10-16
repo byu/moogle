@@ -24,7 +24,7 @@ describe 'Moogle::Commands::PushEmail' do
   }
 
   it 'should push an email' do
-    result = command.call request
+    result = command.call nil, request
     result.kind.should == 'moogle/events/email_pushed'
 
     result.target_id.should == request[:target_id]

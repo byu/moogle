@@ -14,6 +14,7 @@ module Handlers
   #
   class AcceptNotification
     include Serf::Command
+    include Serf::Util::ErrorHandling
 
     attr_reader :pusher_queue
     attr_reader :default_options
